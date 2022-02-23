@@ -1,6 +1,8 @@
 import Queen from "./Queen";
 import assert from "assert";
 
+assert.deepStrictEqual(Queen.getIntArrayFromInt(100), [1, 0, 0]);
+
 // assert.deepStrictEqual(Queen.iota(2, 1), []);
 assert.deepStrictEqual(Queen.iota(3, 6), [3, 4, 5, 6]);
 assert.deepStrictEqual(Queen.divOf(20), [1, 2, 4, 5, 10, 20]);
@@ -47,3 +49,13 @@ assert.equal(Queen.sigma(1, 5, Queen.fact), 153);
 assert.equal(Queen.sigma(1, 5, Queen.id), 15);
 
 // assert.deepStrictEqual(Queen.leftFact(5), [0, 1, 2, 4, 10, 34]);
+assert.equal(Queen.sumOfPrimesUnder(10), 17);
+assert.equal(Queen.isSophieGermanPrime(23), true);
+assert.equal(Queen.isSophieGermanPrime(10), false);
+assert.equal(Queen.isSophieGermanPrime(13), false);
+
+/* 
+From here, I'll implement OEIS sequences
+*/
+
+assert.deepStrictEqual(Queen.A020458SeqUnder(100), [2, 3, 23, 223, 233]);

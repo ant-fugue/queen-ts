@@ -1,4 +1,14 @@
 class Queen {
+  static getIntArrayFromInt(num: number): number[] {
+    if (!Number.isInteger(num)) {
+      throw Error("the argument must be integers");
+    }
+    return num
+      .toString()
+      .split("")
+      .map((elem) => parseInt(elem));
+  }
+
   static iota(min: number, max: number): number[] {
     const length = max - min + 1;
     return new Array(length).fill(0).map((elem, i) => min + i);
@@ -158,6 +168,10 @@ class Queen {
     return result;
   }
 
+  static sumOfPrimesUnder(num: number): number {
+    return this.primeSeq(num).reduce((a, c) => a + c, 0);
+  }
+
   // A003422
   // テスト通らない
   // !0の時に0になるようにiotaやsigmaの範囲設定をするか、あるいは分岐を入れるか。。g
@@ -165,6 +179,48 @@ class Queen {
   //   const arr = Queen.iota(0, num);
   //   return arr.map((elem) => this.sigma(0, elem, this.fact));
   // }
+
+  // https://ja.wikipedia.org/wiki/%E3%82%BD%E3%83%95%E3%82%A3%E3%83%BC%E3%83%BB%E3%82%B8%E3%82%A7%E3%83%AB%E3%83%9E%E3%83%B3%E7%B4%A0%E6%95%B0
+  static isSophieGermanPrime(num: number): boolean {
+    if (!this.isPrime(num)) {
+      return false;
+    }
+    const result = 2 * num + 1;
+    if (this.isPrime(result)) {
+      return true;
+    }
+    return false;
+  }
+
+  // static isMersennePrime(num: number): boolean {
+  //   if (num )
+  //   if (!this.isPrime(num)) {
+  //     return false;
+  //   }
+  //   const mersenneNum = num ** 2 - 1;
+  //   if (this.isPrime(mersenneNum)) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
+
+  /* 
+  From here, I'll implement OEIS sequences
+  */
+
+  // 		Primes that contain digits 2 and 3 only.
+  static A020458SeqUnder = (num: number) => {
+    const primeSeqLetters = this.primeSeq(1000).map((prime) =>
+      prime.toString().split("")
+    );
+
+    const seq = primeSeqLetters.filter((prime) =>
+      prime.every((elem) => elem === "2" || elem === "3")
+    );
+
+    // console.log(seq);
+    return seq.map((elem) => parseInt(elem.join("")));
+  };
 }
 
 export default Queen;

@@ -12,8 +12,11 @@
 //   dot: (obj1: Matrix<Arr>, obj2: Matrix<Arr>) => number;
 // }
 
-class Queen {
-  static getIntArrayFromInt(num: number): number[] {
+// classを使わずに書き換えが可能だった
+// Queenオブジェクト内でそれぞれの関数を宣言するだけ
+// オブジェクト内の他の関数にアクセスする時も、this.iota()とかでいい。テストコードもいじってない
+const Queen = {
+  getIntArrayFromInt(num: number): number[] {
     if (!Number.isInteger(num)) {
       throw Error("the argument must be integers");
     }
@@ -21,14 +24,14 @@ class Queen {
       .toString()
       .split("")
       .map((elem) => parseInt(elem));
-  }
+  },
 
-  static iota(min: number, max: number): number[] {
+  iota(min: number, max: number): number[] {
     const length = max - min + 1;
     return new Array(length).fill(0).map((elem, i) => min + i);
-  }
+  },
 
-  static divOf(num: number): number[] {
+  divOf(num: number): number[] {
     const arr = [];
     for (let i = 1; i < num + 1; i++) {
       if (num % i === 0) {
@@ -36,29 +39,29 @@ class Queen {
       }
     }
     return arr;
-  }
+  },
 
-  static numOfDiv(num: number): number {
+  numOfDiv(num: number): number {
     return this.divOf(num).length;
-  }
+  },
 
-  static divSum(num: number): number {
+  divSum(num: number): number {
     return this.divOf(num).reduce((a, c) => a + c, 0);
-  }
-  static divisorsExceptSelf(num: number): number[] {
+  },
+  divisorsExceptSelf(num: number): number[] {
     const arr = this.divOf(num);
     return arr.slice(0, arr.length - 1);
-  }
+  },
 
-  static numOfDivExceptSelf(num: number): number {
+  numOfDivExceptSelf(num: number): number {
     return this.divisorsExceptSelf(num).length;
-  }
+  },
 
-  static divSumExceptSelf(num: number): number {
+  divSumExceptSelf(num: number): number {
     return this.divisorsExceptSelf(num).reduce((a, c) => a + c, 0);
-  }
+  },
 
-  static divGroup(num: number): string {
+  divGroup(num: number): string {
     if (this.divSumExceptSelf(num) === num) {
       return "perfect";
     } else if (this.divSumExceptSelf(num) > num) {
@@ -67,24 +70,24 @@ class Queen {
       return "deficient";
     }
     return "unexpected input";
-  }
+  },
 
-  static perfectNumSeq(num: number): number[] {
+  perfectNumSeq(num: number): number[] {
     const arr = this.iota(1, num);
     return arr.filter((elem) => this.divGroup(elem) === "perfect");
-  }
+  },
 
-  static surplusNumSeq(num: number): number[] {
+  surplusNumSeq(num: number): number[] {
     const arr = this.iota(1, num);
     return arr.filter((elem) => this.divGroup(elem) === "surplus");
-  }
+  },
 
-  static deficientNumSeq(num: number): number[] {
+  deficientNumSeq(num: number): number[] {
     const arr = this.iota(1, num);
     return arr.filter((elem) => this.divGroup(elem) === "deficient");
-  }
+  },
 
-  static isPrime(num: number): boolean {
+  isPrime(num: number): boolean {
     if (num < 2) {
       return false;
     }
@@ -98,19 +101,19 @@ class Queen {
     }
 
     return true;
-  }
+  },
 
-  static primeSeq(num: number): number[] {
+  primeSeq(num: number): number[] {
     const arr = this.iota(1, num);
-    return arr.filter((elem) => this.isPrime(elem));
-  }
+    return arr.filter((elem: number) => this.isPrime(elem));
+  },
 
-  static compositeSeq(num: number): number[] {
+  compositeSeq(num: number): number[] {
     const arr = this.iota(1, num);
     return arr.filter((elem) => !this.isPrime(elem));
-  }
+  },
 
-  static isHighlyComposite(num: number): boolean {
+  isHighlyComposite(num: number): boolean {
     if (Queen.isPrime(num)) {
       return false;
     }
@@ -136,27 +139,27 @@ class Queen {
     }
 
     return false;
-  }
+  },
 
-  static highlyCompositeSeq(num: number): number[] {
+  highlyCompositeSeq(num: number): number[] {
     const arr = this.compositeSeq(num);
     return arr.filter((elem) => this.isHighlyComposite(elem));
-  }
+  },
 
-  static isTriangularNum(num: number): boolean {
+  isTriangularNum(num: number): boolean {
     const tmp = (-1 + Math.sqrt(1 + 8 * num)) / 2;
     if (Number.isInteger(tmp)) {
       return true;
     }
     return false;
-  }
+  },
 
-  static triangleNumSeq(num: number): number[] {
+  triangleNumSeq(num: number): number[] {
     const arr = this.iota(0, num);
     return arr.filter((elem) => this.isTriangularNum(elem));
-  }
+  },
 
-  static sigma(initial: number, final: number, body: any): number {
+  sigma(initial: number, final: number, body: any): number {
     if (initial > final) {
       return 0;
     }
@@ -165,13 +168,13 @@ class Queen {
     // どうやったらこのコードが使えるようになるかな。。
     // const arr = Queen.iota(initial, final);
     // return arr.reduce(body, 0);
-  }
+  },
 
-  static id(num: number): number {
+  id(num: number): number {
     return num;
-  }
+  },
 
-  static fact(num: number): number {
+  fact(num: number): number {
     let result = 1;
     if (num === 0 || num === 1) {
       return result;
@@ -180,22 +183,22 @@ class Queen {
       result = result * i;
     }
     return result;
-  }
+  },
 
-  static sumOfPrimesUnder(num: number): number {
+  sumOfPrimesUnder(num: number): number {
     return this.primeSeq(num).reduce((a, c) => a + c, 0);
-  }
+  },
 
   // A003422
   // テスト通らない
   // !0の時に0になるようにiotaやsigmaの範囲設定をするか、あるいは分岐を入れるか。。g
-  // static leftFact(num: number): number[] {
+  //  leftFact(num: number): number[] {
   //   const arr = Queen.iota(0, num);
   //   return arr.map((elem) => this.sigma(0, elem, this.fact));
   // }
 
   // https://ja.wikipedia.org/wiki/%E3%82%BD%E3%83%95%E3%82%A3%E3%83%BC%E3%83%BB%E3%82%B8%E3%82%A7%E3%83%AB%E3%83%9E%E3%83%B3%E7%B4%A0%E6%95%B0
-  static isSophieGermanPrime(num: number): boolean {
+  isSophieGermanPrime(num: number): boolean {
     if (!this.isPrime(num)) {
       return false;
     }
@@ -204,9 +207,9 @@ class Queen {
       return true;
     }
     return false;
-  }
+  },
 
-  // static isMersennePrime(num: number): boolean {
+  //  isMersennePrime(num: number): boolean {
   //   if (num )
   //   if (!this.isPrime(num)) {
   //     return false;
@@ -222,37 +225,37 @@ class Queen {
   linear algebra
   */
 
-  static createMatrix = (rows: any, cols: any): any => {
-    rows: rows;
-    cols: cols;
-    matrix: [];
+  //  createMatrix = (rows: any, cols: any): any => {
+  //   rows: rows;
+  //   cols: cols;
+  //   matrix: [];
 
-    for (let i = 0; i < rows; i++) {
-      matrix[i] = [];
-      for (let j = 0; j < cols; j++) {
-        matrix[i][j] 0;
-      }
-    }
-  };
+  //   for (let i = 0; i < rows; i++) {
+  //     matrix[i] = [];
+  //     for (let j = 0; j < cols; j++) {
+  //       matrix[i][j] 0;
+  //     }
+  //   }
+  // },
 
-  // static scalar = (vector: number[], multiplier: number): number[] => {
+  //  scalar = (vector: number[], multiplier: number): number[] => {
   //   return vector.map((elem) => elem * multiplier);
   // };
 
-  static scalar = (matrix: Matrix): Matrix => {};
+  //  scalar = (matrix: Matrix): Matrix => {};
 
-  static elementwise = (vec1: number[], vec2: number[]): number[] => {
-    return vec1.map((elem, i) => elem + vec2[i]);
-  };
+  //  elementwise = (vec1: number[], vec2: number[]): number[] => {
+  //   return vec1.map((elem, i) => elem + vec2[i]);
+  // };
 
-  static dot = (vec1: number[], vec2: number[]): number => {};
+  //  dot = (vec1: number[], vec2: number[]): number => {};
 
   /* 
   From here, I'll implement OEIS sequences
   */
 
   // Primes that contain digits 2 and 3 only.
-  static A020458SeqUnder = (num: number) => {
+  A020458SeqUnder(num: number): number[] {
     const primeSeqLetters = this.primeSeq(1000).map((prime) =>
       prime.toString().split("")
     );
@@ -263,9 +266,9 @@ class Queen {
 
     // console.log(seq);
     return seq.map((elem) => parseInt(elem.join("")));
-  };
+  },
 
-  static isA199988Num = (digits: any): boolean => {
+  isA199988Num(digits: string): boolean {
     if (digits.includes("0")) {
       return false;
     }
@@ -279,12 +282,12 @@ class Queen {
       return true;
     }
     return false;
-  };
+  },
 
-  static A199988SeqUnder = (num: number) => {
+  A199988SeqUnder(num: number): number[] {
     const natSeq = this.iota(1, num);
     return natSeq.filter((elem) => this.isA199988Num(elem.toString()));
-  };
-}
+  },
+};
 
 export default Queen;

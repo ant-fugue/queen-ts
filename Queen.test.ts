@@ -58,11 +58,11 @@ assert.equal(Queen.isSophieGermanPrime(13), false);
   linear algebra
 */
 
-assert.deepStrictEqual(Queen.scalar([2, 8, 9], 2), [4, 16, 18]);
-assert.deepStrictEqual(Queen.scalar([2, 8, 9], -2), [-4, -16, -18]);
-assert.deepStrictEqual(Queen.scalar([2, 8, 9], 0), [0, 0, 0]);
-assert.deepStrictEqual(Queen.elementwise([1, 2, 3], [4, 5, 6]), [5, 7, 9]);
-assert.deepStrictEqual(Queen.elementwise([1, 2, 3], [0, 0, 0]), [1, 2, 3]);
+// assert.deepStrictEqual(Queen.scalar([2, 8, 9], 2), [4, 16, 18]);
+// assert.deepStrictEqual(Queen.scalar([2, 8, 9], -2), [-4, -16, -18]);
+// assert.deepStrictEqual(Queen.scalar([2, 8, 9], 0), [0, 0, 0]);
+// assert.deepStrictEqual(Queen.elementwise([1, 2, 3], [4, 5, 6]), [5, 7, 9]);
+// assert.deepStrictEqual(Queen.elementwise([1, 2, 3], [0, 0, 0]), [1, 2, 3]);
 
 /* 
 From here, I'll implement OEIS sequences

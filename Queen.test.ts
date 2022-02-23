@@ -59,14 +59,14 @@ assert.equal(Queen.isSophieGermanPrime(13), false);
 */
 
 (() => {
-  const m = Queen.createMatrix(3, 2);
-  const addTest = Queen.add(m, 5);
+  const m = Queen.matrix.create(3, 2);
+  const addTest = Queen.matrix.add(m, 5);
   assert.deepStrictEqual(addTest.matrix, [
     [5, 5],
     [5, 5],
     [5, 5],
   ]);
-  const scalarTest = Queen.scalar(addTest, 3);
+  const scalarTest = Queen.matrix.multiply(addTest, 3);
   assert.deepStrictEqual(scalarTest.matrix, [
     [15, 15],
     [15, 15],

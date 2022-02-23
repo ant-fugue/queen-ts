@@ -223,56 +223,56 @@ const Queen = {
   linear algebra
   */
 
-  createMatrix(rows: number, cols: number): Matrix {
-    const matrix = [];
-    for (let i = 0; i < rows; i++) {
-      matrix[i] = [];
-      for (let j = 0; j < cols; j++) {
-        matrix[i][j] = 0;
+  matrix: {
+    create(rows: number, cols: number): Matrix {
+      const matrix = [];
+      for (let i = 0; i < rows; i++) {
+        matrix[i] = [];
+        for (let j = 0; j < cols; j++) {
+          matrix[i][j] = 0;
+        }
       }
-    }
-    return { rows: rows, cols: cols, matrix: matrix };
-  },
+      return { rows: rows, cols: cols, matrix: matrix };
+    },
 
-  randomizeMatrixUnder(m: Matrix, n: number): Matrix {
-    const newMat = Object.assign(m);
-    for (let i = 0; i < newMat.rows; i++) {
-      for (let j = 0; j < newMat.cols; j++) {
-        newMat.matrix[i][j] = Math.floor(Math.random() * n);
+    randomize(m: Matrix, n: number): Matrix {
+      const newMat = Object.assign(m);
+      for (let i = 0; i < newMat.rows; i++) {
+        for (let j = 0; j < newMat.cols; j++) {
+          newMat.matrix[i][j] = Math.floor(Math.random() * n);
+        }
       }
-    }
-    return newMat;
-  },
+      return newMat;
+    },
 
-  add(m: Matrix, n: number): Matrix {
-    const newMat = Object.assign(m);
-    for (let i = 0; i < newMat.rows; i++) {
-      for (let j = 0; j < newMat.cols; j++) {
-        newMat.matrix[i][j] += n;
+    add(m: Matrix, n: number): Matrix {
+      const newMat = Object.assign(m);
+      for (let i = 0; i < newMat.rows; i++) {
+        for (let j = 0; j < newMat.cols; j++) {
+          newMat.matrix[i][j] += n;
+        }
       }
-    }
 
-    return newMat;
-  },
-
-  scalar(m: Matrix, multiplier: number): Matrix {
-    const newMat = Object.assign(m);
-    for (let i = 0; i < newMat.rows; i++) {
-      for (let j = 0; j < newMat.cols; j++) {
-        newMat.matrix[i][j] *= multiplier;
+      return newMat;
+    },
+    multiply(m: Matrix, multiplier: number): Matrix {
+      const newMat = Object.assign(m);
+      for (let i = 0; i < newMat.rows; i++) {
+        for (let j = 0; j < newMat.cols; j++) {
+          newMat.matrix[i][j] *= multiplier;
+        }
       }
-    }
-    return newMat;
-  },
+      return newMat;
+    },
+    elementwise(m: Matrix, n: Matrix): Matrix {
+      // return vec1.map((elem, i) => elem + vec2[i]);
+      const newMat = Object.assign(m);
+      newMat.matrix.map((elem, i) => elem + n[i]);
+      return newMat;
+    },
 
-  elementwise(m: Matrix, n: Matrix): Matrix {
-    // return vec1.map((elem, i) => elem + vec2[i]);
-    const newMat = Object.assign(m);
-    newMat.matrix.map((elem, i) => elem + n[i]);
-    return newMat;
+    //  dot = (vec1: number[], vec2: number[]): number => {};
   },
-
-  //  dot = (vec1: number[], vec2: number[]): number => {};
 
   /* 
   From here, I'll implement OEIS sequences
@@ -316,4 +316,4 @@ const Queen = {
 
 export default Queen;
 
-console.table(Queen.randomizeMatrixUnder(Queen.createMatrix(3, 2), 20));
+console.table(Queen.matrix.randomize(Queen.matrix.create(3, 2), 20));

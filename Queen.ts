@@ -1,3 +1,17 @@
+// type Arr = Array<number>;
+// type Matrix = Array<Arr>;
+
+// interface Matrix {
+//   rows: number;
+//   cols: number;
+// }
+
+// interface Matrix<Arr> {
+//   scalar: (obj: Matrix<Arr>, num: number) => Matrix<Arr>;
+//   elementwise: (obj1: Matrix<Arr>, obj2: Matrix<Arr>) => Matrix<Arr>;
+//   dot: (obj1: Matrix<Arr>, obj2: Matrix<Arr>) => number;
+// }
+
 class Queen {
   static getIntArrayFromInt(num: number): number[] {
     if (!Number.isInteger(num)) {
@@ -205,10 +219,39 @@ class Queen {
   // }
 
   /* 
+  linear algebra
+  */
+
+  static createMatrix = (rows: any, cols: any): any => {
+    rows: rows;
+    cols: cols;
+    matrix: [];
+
+    for (let i = 0; i < rows; i++) {
+      matrix[i] = [];
+      for (let j = 0; j < cols; j++) {
+        matrix[i][j] 0;
+      }
+    }
+  };
+
+  // static scalar = (vector: number[], multiplier: number): number[] => {
+  //   return vector.map((elem) => elem * multiplier);
+  // };
+
+  static scalar = (matrix: Matrix): Matrix => {};
+
+  static elementwise = (vec1: number[], vec2: number[]): number[] => {
+    return vec1.map((elem, i) => elem + vec2[i]);
+  };
+
+  static dot = (vec1: number[], vec2: number[]): number => {};
+
+  /* 
   From here, I'll implement OEIS sequences
   */
 
-  // 		Primes that contain digits 2 and 3 only.
+  // Primes that contain digits 2 and 3 only.
   static A020458SeqUnder = (num: number) => {
     const primeSeqLetters = this.primeSeq(1000).map((prime) =>
       prime.toString().split("")

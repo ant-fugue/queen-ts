@@ -59,3 +59,9 @@ From here, I'll implement OEIS sequences
 */
 
 assert.deepStrictEqual(Queen.A020458SeqUnder(100), [2, 3, 23, 223, 233]);
+assert.equal(Queen.isA199988Num("10"), false);
+assert.equal(Queen.isA199988Num("1116"), true);
+assert.deepStrictEqual(
+  Queen.A199988SeqUnder(1000),
+  [6, 16, 23, 32, 61, 116, 123, 132, 161, 213, 231, 312, 321, 611]
+);

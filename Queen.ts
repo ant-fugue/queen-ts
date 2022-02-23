@@ -221,6 +221,27 @@ class Queen {
     // console.log(seq);
     return seq.map((elem) => parseInt(elem.join("")));
   };
+
+  static isA199988Num = (digits: any): boolean => {
+    if (digits.includes("0")) {
+      return false;
+    }
+    let tmp = 1;
+
+    for (const elem of digits) {
+      tmp = tmp * parseInt(elem);
+    }
+
+    if (tmp === 6) {
+      return true;
+    }
+    return false;
+  };
+
+  static A199988SeqUnder = (num: number) => {
+    const natSeq = this.iota(1, num);
+    return natSeq.filter((elem) => this.isA199988Num(elem.toString()));
+  };
 }
 
 export default Queen;

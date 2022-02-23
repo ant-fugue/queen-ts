@@ -1,10 +1,8 @@
-// type Arr = Array<number>;
-// type Matrix = Array<Arr>;
-
-// interface Matrix {
-//   rows: number;
-//   cols: number;
-// }
+interface Matrix {
+  rows: number;
+  cols: number;
+  matrix: any[];
+}
 
 // interface Matrix<Arr> {
 //   scalar: (obj: Matrix<Arr>, num: number) => Matrix<Arr>;
@@ -225,28 +223,54 @@ const Queen = {
   linear algebra
   */
 
-  //  createMatrix = (rows: any, cols: any): any => {
-  //   rows: rows;
-  //   cols: cols;
-  //   matrix: [];
+  createMatrix(rows: number, cols: number): Matrix {
+    const matrix = [];
+    for (let i = 0; i < rows; i++) {
+      matrix[i] = [];
+      for (let j = 0; j < cols; j++) {
+        matrix[i][j] = 0;
+      }
+    }
+    return { rows: rows, cols: cols, matrix: matrix };
+  },
 
-  //   for (let i = 0; i < rows; i++) {
-  //     matrix[i] = [];
-  //     for (let j = 0; j < cols; j++) {
-  //       matrix[i][j] 0;
-  //     }
-  //   }
-  // },
+  randomizeMatrixUnder(m: Matrix, n: number): Matrix {
+    const newMat = Object.assign(m);
+    for (let i = 0; i < newMat.rows; i++) {
+      for (let j = 0; j < newMat.cols; j++) {
+        newMat.matrix[i][j] = Math.floor(Math.random() * n);
+      }
+    }
+    return newMat;
+  },
 
-  //  scalar = (vector: number[], multiplier: number): number[] => {
-  //   return vector.map((elem) => elem * multiplier);
-  // };
+  add(m: Matrix, n: number): Matrix {
+    const newMat = Object.assign(m);
+    for (let i = 0; i < newMat.rows; i++) {
+      for (let j = 0; j < newMat.cols; j++) {
+        newMat.matrix[i][j] += n;
+      }
+    }
 
-  //  scalar = (matrix: Matrix): Matrix => {};
+    return newMat;
+  },
 
-  //  elementwise = (vec1: number[], vec2: number[]): number[] => {
-  //   return vec1.map((elem, i) => elem + vec2[i]);
-  // };
+  scalar(m: Matrix, multiplier: number): Matrix {
+    const newMat = Object.assign(m);
+    for (let i = 0; i < newMat.rows; i++) {
+      for (let j = 0; j < newMat.cols; j++) {
+        newMat.matrix[i][j] *= multiplier;
+      }
+    }
+    return newMat;
+  },
+
+  elementwise(m: Matrix, n: Matrix): Matrix {
+    // return vec1.map((elem, i) => elem + vec2[i]);
+    const newMat = Object.assign(m);
+    newMat.matrix.map((elem, i) => elem + n[i]);
+    return newMat;
+  },
 
   //  dot = (vec1: number[], vec2: number[]): number => {};
 
@@ -291,3 +315,5 @@ const Queen = {
 };
 
 export default Queen;
+
+console.table(Queen.randomizeMatrixUnder(Queen.createMatrix(3, 2), 20));

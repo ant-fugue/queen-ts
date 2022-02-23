@@ -58,6 +58,22 @@ assert.equal(Queen.isSophieGermanPrime(13), false);
   linear algebra
 */
 
+(() => {
+  const m = Queen.createMatrix(3, 2);
+  const addTest = Queen.add(m, 5);
+  assert.deepStrictEqual(addTest.matrix, [
+    [5, 5],
+    [5, 5],
+    [5, 5],
+  ]);
+  const scalarTest = Queen.scalar(addTest, 3);
+  assert.deepStrictEqual(scalarTest.matrix, [
+    [15, 15],
+    [15, 15],
+    [15, 15],
+  ]);
+})();
+
 // assert.deepStrictEqual(Queen.scalar([2, 8, 9], 2), [4, 16, 18]);
 // assert.deepStrictEqual(Queen.scalar([2, 8, 9], -2), [-4, -16, -18]);
 // assert.deepStrictEqual(Queen.scalar([2, 8, 9], 0), [0, 0, 0]);

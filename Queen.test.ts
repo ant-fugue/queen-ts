@@ -7,6 +7,7 @@ assert.deepStrictEqual(Queen.getIntArrayFromInt(100), [1, 0, 0]);
 assert.deepStrictEqual(Queen.iota(3, 6), [3, 4, 5, 6]);
 assert.deepStrictEqual(Queen.divOf(20), [1, 2, 4, 5, 10, 20]);
 assert.equal(Queen.divSum(20), 42);
+assert.equal(Queen.divProduct(12), 1728);
 assert.deepStrictEqual(Queen.numOfDiv(20), 6);
 assert.deepStrictEqual(Queen.divisorsExceptSelf(20), [1, 2, 4, 5, 10]);
 assert.equal(Queen.divSumExceptSelf(20), 22);
@@ -48,11 +49,21 @@ assert.equal(Queen.fact(5), 120);
 assert.equal(Queen.sigma(1, 5, Queen.fact), 153);
 assert.equal(Queen.sigma(1, 5, Queen.id), 15);
 
+assert.equal(Queen.digitsToBinary(0), "0");
+assert.equal(Queen.digitsToBinary(10), "1010");
+assert.equal(Queen.digitsToBinary(15), "1111");
+
+assert.equal(Queen.isTriangle(0, 0, 3), false);
+assert.equal(Queen.isTriangle(1, 2, 3), false);
+assert.equal(Queen.isTriangle(2, 3, 4), true);
+
 // assert.deepStrictEqual(Queen.leftFact(5), [0, 1, 2, 4, 10, 34]);
 assert.equal(Queen.sumOfPrimesUnder(10), 17);
 assert.equal(Queen.isSophieGermanPrime(23), true);
 assert.equal(Queen.isSophieGermanPrime(10), false);
 assert.equal(Queen.isSophieGermanPrime(13), false);
+
+assert.equal(Queen.divisorFunction(2, 6), 50);
 
 /* 
   linear algebra
@@ -84,7 +95,16 @@ assert.equal(Queen.isSophieGermanPrime(13), false);
 From here, I'll implement OEIS sequences
 */
 
+assert.equal(Queen.lunar.add("34", "55"), "55");
+assert.equal(Queen.lunar.add("1", "1"), "1");
+assert.equal(Queen.lunar.add("1", "2"), "2");
+assert.equal(Queen.lunar.add("57", "63"), "67");
+
 assert.deepStrictEqual(Queen.A020458SeqUnder(100), [2, 3, 23, 223, 233]);
+assert.deepStrictEqual(
+  Queen.A005179SeqUnder(100),
+  [1, 2, 4, 6, 12, 16, 24, 36, 48, 60, 64]
+);
 assert.equal(Queen.isA199988Num("10"), false);
 assert.equal(Queen.isA199988Num("1116"), true);
 assert.deepStrictEqual(

@@ -46,6 +46,9 @@ const Queen = {
   divSum(num: number): number {
     return this.divOf(num).reduce((a, c) => a + c, 0);
   },
+  divProduct(num: number): number {
+    return this.divOf(num).reduce((a, c) => a * c, 1);
+  },
   divisorsExceptSelf(num: number): number[] {
     const arr = this.divOf(num);
     return arr.slice(0, arr.length - 1);
@@ -187,6 +190,32 @@ const Queen = {
     return this.primeSeq(num).reduce((a, c) => a + c, 0);
   },
 
+  digitsToBinary(num: number): string {
+    let result = "";
+    let index = 0;
+    while (2 ** (index + 1) < num) {
+      index = index + 1;
+    }
+
+    for (let i = index; i >= 0; i--) {
+      let tmp = num - 2 ** i;
+      if (tmp >= 0) {
+        result += "1";
+        num = tmp;
+      } else {
+        result += "0";
+      }
+    }
+    return result;
+  },
+
+  isTriangle(a: number, b: number, c: number): boolean {
+    if (a < b + c && b < c + a && c < a + b) {
+      return true;
+    }
+    return false;
+  },
+
   // A003422
   // テスト通らない
   // !0の時に0になるようにiotaやsigmaの範囲設定をするか、あるいは分岐を入れるか。。g
@@ -205,6 +234,14 @@ const Queen = {
       return true;
     }
     return false;
+  },
+
+  divisorFunction(powers: number, num: number): number {
+    const divisors = this.divOf(num);
+
+    return divisors
+      .map((elem) => Math.pow(elem, powers))
+      .reduce((a, c) => a + c, 0);
   },
 
   //  isMersennePrime(num: number): boolean {
@@ -278,6 +315,31 @@ const Queen = {
   From here, I'll implement OEIS sequences
   */
 
+  lunar: {
+    add(s1: string, s2: string): string {
+      let tmp = "";
+      for (let i = 0; i < s1.length; i++) {
+        Number(s1[i]) >= Number(s2[i]) ? (tmp += s1[i]) : (tmp += s2[i]);
+      }
+      return tmp;
+    },
+  },
+
+  A005179SeqUnder(num: number): number[] {
+    const seq = this.iota(1, num);
+    const div = [];
+    const result = [];
+
+    seq.forEach((elem, i) => {
+      const numOfDiv = this.numOfDiv(elem);
+      if (!div.includes(numOfDiv)) {
+        div.push(numOfDiv);
+        result.push(elem);
+      }
+    });
+    return result;
+  },
+
   // Primes that contain digits 2 and 3 only.
   A020458SeqUnder(num: number): number[] {
     const primeSeqLetters = this.primeSeq(1000).map((prime) =>
@@ -315,5 +377,3 @@ const Queen = {
 };
 
 export default Queen;
-
-console.table(Queen.matrix.randomize(Queen.matrix.create(3, 2), 20));

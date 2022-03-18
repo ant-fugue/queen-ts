@@ -57,6 +57,9 @@ assert.equal(Queen.isTriangle(0, 0, 3), false);
 assert.equal(Queen.isTriangle(1, 2, 3), false);
 assert.equal(Queen.isTriangle(2, 3, 4), true);
 
+// assert.equal(Queen.fib(6), 5);
+// assert.deepStrictEqual(Queen.fibSeq(6), [0, 1, 1, 2, 3, 5]);
+
 // assert.deepStrictEqual(Queen.leftFact(5), [0, 1, 2, 4, 10, 34]);
 assert.equal(Queen.sumOfPrimesUnder(10), 17);
 assert.equal(Queen.isSophieGermanPrime(23), true);

@@ -73,4 +73,37 @@ console.log(Queen.iota(1, 1000).filter((elem) => isTwinPrime(elem)));
 // A000169
 // n^(n-1)
 console.log(Queen.iota(1, 10).map((elem, i) => Math.pow(elem, i)));
-console.log(Queen.highlyCompositeSeq(100));
+
+// A34287
+let max = 0;
+console.log(
+  Queen.iota(1, 20).filter((elem) => {
+    const divProduct = Queen.divProduct(elem);
+    if (divProduct > max) {
+      max = divProduct;
+      return true;
+    }
+    return false;
+  })
+);
+
+// A000566
+// 七角数
+console.log(Queen.iota(1, 10).map((elem) => (5 * elem ** 2 - 3 * elem) / 2));
+
+// A007691
+// multiply perfect number
+console.log(
+  Queen.iota(1, 1000).filter((elem) => Queen.divSum(elem) % elem === 0)
+);
+
+// harshad number
+// A005349
+// 自然数の各位の数字和が元の数の約数に含まれている自然数
+const f = (num: number) => {
+  const divisors = Queen.divOf(num);
+  const sumOfDigits = Queen.getIntArrayFromInt(num).reduce((a, c) => a + c, 0);
+  return divisors.includes(sumOfDigits) ? true : false;
+};
+
+console.log(Queen.iota(1, 20).filter((elem) => f(elem)));

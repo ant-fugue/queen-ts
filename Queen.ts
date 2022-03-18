@@ -216,6 +216,21 @@ const Queen = {
     return false;
   },
 
+  // fib(n: number): number {
+  //   if (n === 0) {
+  //     return 0;
+  //   }
+  //   if (n === 1) {
+  //     return 1;
+  //   } else {
+  //     return this.fib(n - 1) + this.fib(n - 2);
+  //   }
+  // },
+
+  // fibSeq(n: number): number[] {
+  //   return Queen.iota(0, n).map((elem) => this.fib(elem));
+  // },
+
   // A003422
   // テスト通らない
   // !0の時に0になるようにiotaやsigmaの範囲設定をするか、あるいは分岐を入れるか。。g

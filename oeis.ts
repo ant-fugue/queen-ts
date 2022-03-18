@@ -1,109 +1,69 @@
 import Queen from "./Queen";
 
-// A028982
-// primes except 2 is not included in this sequence
-console.log(Queen.iota(1, 100).filter((elem) => Queen.divSum(elem) % 2 === 1));
+const Oeis = {
+  /* 
+  From here, I'll implement OEIS sequences
+  */
 
-// A023194
-// primes except 2 is not included in this sequence
-console.log(
-  Queen.iota(1, 1000).filter((elem) => Queen.isPrime(Queen.divSum(elem)))
-);
+  lunar: {
+    add(s1: string, s2: string): string {
+      let tmp = "";
+      for (let i = 0; i < s1.length; i++) {
+        Number(s1[i]) >= Number(s2[i]) ? (tmp += s1[i]) : (tmp += s2[i]);
+      }
+      return tmp;
+    },
+  },
 
-// A007500
+  A005179SeqUnder(num: number): number[] {
+    const seq = Queen.iota(1, num);
+    const div = [];
+    const result = [];
 
-const isA007500 = (elem) => {
-  if (!Queen.isPrime(elem)) {
-    return false;
-  }
-  if (Queen.isPrime(Number(elem.toString().split("").reverse().join("")))) {
-    return true;
-  }
-  return false;
-};
-console.log(Queen.iota(1, 1000).filter((elem) => isA007500(elem)));
+    seq.forEach((elem, i) => {
+      const numOfDiv = Queen.numOfDiv(elem);
+      if (!div.includes(numOfDiv)) {
+        div.push(numOfDiv);
+        result.push(elem);
+      }
+    });
+    return result;
+  },
 
-console.log(Queen.divOf(2022));
-console.log(Queen.isPrime(337));
+  // Primes that contain digits 2 and 3 only.
+  A020458SeqUnder(num: number): number[] {
+    const primeSeqLetters = Queen.primeSeq(1000).map((prime) =>
+      prime.toString().split("")
+    );
 
-// 337が何番目の素数なのか？
-console.log(Queen.primeSeq(1000).indexOf(337) + 1);
+    const seq = primeSeqLetters.filter((prime) =>
+      prime.every((elem) => elem === "2" || elem === "3")
+    );
 
-// x番目の素数である場合、そのx自体も素数である数列
-// A006450
-console.log(Queen.primeSeq(1000).filter((elem, i) => Queen.isPrime(i + 1)));
+    // console.log(seq);
+    return seq.map((elem) => parseInt(elem.join("")));
+  },
 
-// 約数の和が素数になる数の数列
-// A023194
-console.log(
-  Queen.iota(1, 1000).filter((elem) => Queen.isPrime(Queen.divSum(elem)))
-);
+  isA199988Num(digits: string): boolean {
+    if (digits.includes("0")) {
+      return false;
+    }
+    let tmp = 1;
 
-// 各位の和が素数になる数の数列
-// A028834
-const isA028834 = (num: number) =>
-  Queen.isPrime(Queen.getIntArrayFromInt(num).reduce((a, c) => a + c, 0));
-console.log(Queen.iota(1, 1000).filter((elem) => isA028834(elem)));
+    for (const elem of digits) {
+      tmp = tmp * parseInt(elem);
+    }
 
-// 各位の積が素数になる数の数列
-// A028842
-// 素数が一つだけあり、それ以外の桁にひとつでも1以外の数があると、productは合成数になってしまうので、
-// prime + 1の組み合わせになっている。
-const isA028842 = (num: number) =>
-  Queen.isPrime(Queen.getIntArrayFromInt(num).reduce((a, c) => a * c, 1));
-console.log(Queen.iota(1, 1000).filter((elem) => isA028842(elem)));
-
-// twin primes
-const isTwinPrime = (num: number) =>
-  Queen.isPrime(num) && (Queen.isPrime(num - 2) || Queen.isPrime(num + 2));
-
-console.log(Queen.iota(1, 1000).filter((elem) => isTwinPrime(elem)));
-
-// const isPrimeQuadruplet = (num: number) => {
-//   return (
-//     Queen.isPrime(num) &&
-//     Queen.isPrime(num + 2) &&
-//     Queen.isPrime(num + 6) &&
-//     Queen.isPrime(num + 8)
-//   );
-// };
-
-// console.log(Queen.iota(1, 1000).filter((elem) => isPrimeQuadruplet(elem)));
-
-// A000169
-// n^(n-1)
-console.log(Queen.iota(1, 10).map((elem, i) => Math.pow(elem, i)));
-
-// A34287
-let max = 0;
-console.log(
-  Queen.iota(1, 20).filter((elem) => {
-    const divProduct = Queen.divProduct(elem);
-    if (divProduct > max) {
-      max = divProduct;
+    if (tmp === 6) {
       return true;
     }
     return false;
-  })
-);
+  },
 
-// A000566
-// 七角数
-console.log(Queen.iota(1, 10).map((elem) => (5 * elem ** 2 - 3 * elem) / 2));
-
-// A007691
-// multiply perfect number
-console.log(
-  Queen.iota(1, 1000).filter((elem) => Queen.divSum(elem) % elem === 0)
-);
-
-// harshad number
-// A005349
-// 自然数の各位の数字和が元の数の約数に含まれている自然数
-const f = (num: number) => {
-  const divisors = Queen.divOf(num);
-  const sumOfDigits = Queen.getIntArrayFromInt(num).reduce((a, c) => a + c, 0);
-  return divisors.includes(sumOfDigits) ? true : false;
+  A199988SeqUnder(num: number): number[] {
+    const natSeq = Queen.iota(1, num);
+    return natSeq.filter((elem) => this.isA199988Num(elem.toString()));
+  },
 };
 
-console.log(Queen.iota(1, 20).filter((elem) => f(elem)));
+export default Oeis;

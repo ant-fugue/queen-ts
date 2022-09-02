@@ -1,4 +1,4 @@
-import Queen from "./Queen";
+import Queen from "./Queen.ts";
 
 const Oeis = {
   /* 

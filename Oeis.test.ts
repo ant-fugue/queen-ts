@@ -1,19 +1,32 @@
-import Oeis from "./Oeis";
-import assert from "assert";
+import Oeis from "./Oeis.ts";
+import { assertEquals } from "https://deno.land/std@0.153.0/testing/asserts.ts";
 
-assert.equal(Oeis.lunar.add("34", "55"), "55");
-assert.equal(Oeis.lunar.add("1", "1"), "1");
-assert.equal(Oeis.lunar.add("1", "2"), "2");
-assert.equal(Oeis.lunar.add("57", "63"), "67");
+Deno.test("test", () => {
+  Oeis.lunar.add("34", "55"), "55";
+});
+Deno.test("test", () => {
+  Oeis.lunar.add("1", "1"), "1";
+});
+Deno.test("test", () => {
+  Oeis.lunar.add("1", "2"), "2";
+});
+Deno.test("test", () => {
+  Oeis.lunar.add("57", "63"), "67";
+});
 
-assert.deepStrictEqual(Oeis.A020458SeqUnder(100), [2, 3, 23, 223, 233]);
-assert.deepStrictEqual(
-  Oeis.A005179SeqUnder(100),
-  [1, 2, 4, 6, 12, 16, 24, 36, 48, 60, 64]
-);
-assert.equal(Oeis.isA199988Num("10"), false);
-assert.equal(Oeis.isA199988Num("1116"), true);
-assert.deepStrictEqual(
+Deno.test("test", () => {
+  Oeis.A020458SeqUnder(100), [2, 3, 23, 223, 233];
+});
+Deno.test("test", () => {
+  Oeis.A005179SeqUnder(100), [1, 2, 4, 6, 12, 16, 24, 36, 48, 60, 64];
+});
+Deno.test("test", () => {
+  Oeis.isA199988Num("10"), false;
+});
+Deno.test("test", () => {
+  Oeis.isA199988Num("1116"), true;
+});
+Deno.test("test", () => {
   Oeis.A199988SeqUnder(1000),
-  [6, 16, 23, 32, 61, 116, 123, 132, 161, 213, 231, 312, 321, 611]
-);
+    [6, 16, 23, 32, 61, 116, 123, 132, 161, 213, 231, 312, 321, 611];
+});

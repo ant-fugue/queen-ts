@@ -268,60 +268,9 @@ const Queen = {
   //   return false;
   // }
 
-  /* 
+  /*
   linear algebra
   */
-
-  matrix: {
-    create(rows: number, cols: number): Matrix {
-      const matrix = [];
-      for (let i = 0; i < rows; i++) {
-        matrix[i] = [];
-        for (let j = 0; j < cols; j++) {
-          matrix[i][j] = 0;
-        }
-      }
-      return { rows: rows, cols: cols, matrix: matrix };
-    },
-
-    randomize(m: Matrix, n: number): Matrix {
-      const newMat = Object.assign(m);
-      for (let i = 0; i < newMat.rows; i++) {
-        for (let j = 0; j < newMat.cols; j++) {
-          newMat.matrix[i][j] = Math.floor(Math.random() * n);
-        }
-      }
-      return newMat;
-    },
-
-    add(m: Matrix, n: number): Matrix {
-      const newMat = Object.assign(m);
-      for (let i = 0; i < newMat.rows; i++) {
-        for (let j = 0; j < newMat.cols; j++) {
-          newMat.matrix[i][j] += n;
-        }
-      }
-
-      return newMat;
-    },
-    multiply(m: Matrix, multiplier: number): Matrix {
-      const newMat = Object.assign(m);
-      for (let i = 0; i < newMat.rows; i++) {
-        for (let j = 0; j < newMat.cols; j++) {
-          newMat.matrix[i][j] *= multiplier;
-        }
-      }
-      return newMat;
-    },
-    elementwise(m: Matrix, n: Matrix): Matrix {
-      // return vec1.map((elem, i) => elem + vec2[i]);
-      const newMat = Object.assign(m);
-      newMat.matrix.map((elem, i) => elem + n[i]);
-      return newMat;
-    },
-
-    //  dot = (vec1: number[], vec2: number[]): number => {};
-  },
 };
 
 export default Queen;

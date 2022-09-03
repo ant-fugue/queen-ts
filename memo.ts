@@ -1,37 +1,19 @@
-import Queen from "./Queen";
-
-// A028982
-// primes except 2 is not included in this sequence
-console.log(Queen.iota(1, 100).filter((elem) => Queen.divSum(elem) % 2 === 1));
+import Queen from "./Queen.ts";
 
 // A023194
 // primes except 2 is not included in this sequence
 console.log(
   Queen.iota(1, 1000).filter((elem) => Queen.isPrime(Queen.divSum(elem)))
 );
-
-// A007500
-
-const isA007500 = (elem) => {
-  if (!Queen.isPrime(elem)) {
-    return false;
-  }
-  if (Queen.isPrime(Number(elem.toString().split("").reverse().join("")))) {
-    return true;
-  }
-  return false;
-};
-console.log(Queen.iota(1, 1000).filter((elem) => isA007500(elem)));
+// A028982
+// primes except 2 is not included in this sequence
+console.log(Queen.iota(1, 100).filter((elem) => Queen.divSum(elem) % 2 === 1));
 
 console.log(Queen.divOf(2022));
 console.log(Queen.isPrime(337));
 
 // 337が何番目の素数なのか？
 console.log(Queen.primeSeq(1000).indexOf(337) + 1);
-
-// x番目の素数である場合、そのx自体も素数である数列
-// A006450
-console.log(Queen.primeSeq(1000).filter((elem, i) => Queen.isPrime(i + 1)));
 
 // 約数の和が素数になる数の数列
 // A023194
@@ -70,10 +52,6 @@ console.log(Queen.iota(1, 1000).filter((elem) => isTwinPrime(elem)));
 
 // console.log(Queen.iota(1, 1000).filter((elem) => isPrimeQuadruplet(elem)));
 
-// A000169
-// n^(n-1)
-console.log(Queen.iota(1, 10).map((elem, i) => Math.pow(elem, i)));
-
 // A34287
 let max = 0;
 console.log(
@@ -87,23 +65,20 @@ console.log(
   })
 );
 
-// A000566
-// 七角数
-console.log(Queen.iota(1, 10).map((elem) => (5 * elem ** 2 - 3 * elem) / 2));
+Queen.iota(1, 20).filter((elem) => f(elem));
 
-// A007691
-// multiply perfect number
+// A077684
+// Squarefree numbers with 8 as their initial digit
 console.log(
-  Queen.iota(1, 1000).filter((elem) => Queen.divSum(elem) % elem === 0)
+  Queen.iota(1, 1000)
+    .filter((elem: number) => Queen.isSquareFree(elem))
+    .filter((e: number) => Queen.getIntArrayFromInt(e)[0] === 8)
 );
 
-// harshad number
-// A005349
-// 自然数の各位の数字和が元の数の約数に含まれている自然数
-const f = (num: number) => {
-  const divisors = Queen.divOf(num);
-  const sumOfDigits = Queen.getIntArrayFromInt(num).reduce((a, c) => a + c, 0);
-  return divisors.includes(sumOfDigits) ? true : false;
-};
+// A217401
 
-console.log(Queen.iota(1, 20).filter((elem) => f(elem)));
+console.log(
+  Queen.iota(1, 1000).filter(
+    (elem: number) => Queen.getIntArrayFromInt(elem)[0] === 8
+  )
+);

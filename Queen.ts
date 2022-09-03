@@ -278,9 +278,23 @@ const Queen = {
     return true;
   },
 
-  /*
-  linear algebra
-  */
+  // https://www.youtube.com/watch?v=cZkGeR9CWbk&t=227s
+  lunar: {
+    add(s1: string, s2: string): string {
+      let tmp = "";
+      for (let i = 0; i < s1.length; i++) {
+        Number(s1[i]) >= Number(s2[i]) ? (tmp += s1[i]) : (tmp += s2[i]);
+      }
+      return tmp;
+    },
+    mult(s1: string, s2: string): string {
+      let tmp = "";
+      for (let i = 0; i < s1.length; i++) {
+        Number(s1[i]) >= Number(s2[i]) ? (tmp += s2[i]) : (tmp += s1[i]);
+      }
+      return tmp;
+    },
+  },
 };
 
 export default Queen;

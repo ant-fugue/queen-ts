@@ -1,5 +1,5 @@
 import Queen from "./Queen.ts";
-import { assertEquals } from "https://deno.land/std@0.153.0/testing/asserts.ts";
+import { assertEquals } from "./deps.ts";
 
 Deno.test(
   "getIntArrayFromInt() returns the array which contains integers which are decomposed to digits from original integer",
@@ -154,6 +154,18 @@ Deno.test("isSquareFree", () => {
   assertEquals(Queen.isSquareFree(1), false);
   assertEquals(Queen.isSquareFree(8), false);
   assertEquals(Queen.isSquareFree(10), true);
+});
+
+Deno.test("lunar addition keeps the bigger", () => {
+  assertEquals(Queen.lunar.add("1", "1"), "1");
+  assertEquals(Queen.lunar.add("1", "2"), "2");
+  assertEquals(Queen.lunar.add("58", "19"), "59");
+});
+
+Deno.test("lunar multiplication keeps the smaller", () => {
+  assertEquals(Queen.lunar.mult("1", "1"), "1");
+  assertEquals(Queen.lunar.mult("1", "2"), "1");
+  assertEquals(Queen.lunar.mult("17", "24"), "124");
 });
 
 /*

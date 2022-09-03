@@ -1,18 +1,5 @@
 import Oeis from "./Oeis.ts";
-import { assertEquals } from "https://deno.land/std@0.153.0/testing/asserts.ts";
-
-Deno.test("test", () => {
-  Oeis.lunar.add("34", "55"), "55";
-});
-Deno.test("test", () => {
-  Oeis.lunar.add("1", "1"), "1";
-});
-Deno.test("test", () => {
-  Oeis.lunar.add("1", "2"), "2";
-});
-Deno.test("test", () => {
-  Oeis.lunar.add("57", "63"), "67";
-});
+import { assertEquals } from "./deps.ts";
 
 Deno.test("test", () => {
   Oeis.A020458SeqUnder(100), [2, 3, 23, 223, 233];

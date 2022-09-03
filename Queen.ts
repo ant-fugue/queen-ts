@@ -278,6 +278,23 @@ const Queen = {
     return true;
   },
 
+  collatz(num: number): number[] {
+    if (num === 1) {
+      return [1, 4, 2, 1];
+    }
+    let result: number[] = [num];
+    while (num !== 1) {
+      if (num % 2 === 0) {
+        num = num / 2;
+        result.push(num);
+      } else {
+        num = num * 3 + 1;
+        result.push(num);
+      }
+    }
+    return result;
+  },
+
   // https://www.youtube.com/watch?v=cZkGeR9CWbk&t=227s
   lunar: {
     add(s1: string, s2: string): string {
@@ -289,8 +306,15 @@ const Queen = {
     },
     mult(s1: string, s2: string): string {
       let tmp = "";
-      for (let i = 0; i < s1.length; i++) {
+      let length: number = 0;
+      if (s1.length >= s2.length) {
+        length = s1.length;
+      } else {
+        length = s2.length;
+      }
+      for (let i = 0; i < length; i++) {
         Number(s1[i]) >= Number(s2[i]) ? (tmp += s2[i]) : (tmp += s1[i]);
+        console.log(tmp);
       }
       return tmp;
     },

@@ -14,7 +14,6 @@ const Oeis = {
       return tmp;
     },
   },
-
   A005179SeqUnder(num: number): number[] {
     const seq = Queen.iota(1, num);
     const div = [];

@@ -1,9 +1,14 @@
 import Queen from "./Queen.ts";
 import { assertEquals } from "https://deno.land/std@0.153.0/testing/asserts.ts";
 
-Deno.test("test", () => {
-  assertEquals(Queen.getIntArrayFromInt(100), [1, 0, 0]);
-});
+Deno.test(
+  "getIntArrayFromInt() returns the array which contains integers which are decomposed to digits from original integer",
+  () => {
+    assertEquals(Queen.getIntArrayFromInt(1), [1]);
+    assertEquals(Queen.getIntArrayFromInt(23), [2, 3]);
+    assertEquals(Queen.getIntArrayFromInt(100), [1, 0, 0]);
+  }
+);
 
 // Deno.test("test",()=>{assertEquals(Queen.iota(2, 1), [])});
 Deno.test("test", () => {
@@ -143,6 +148,12 @@ Deno.test("test", () => {
 
 Deno.test("test", () => {
   assertEquals(Queen.divisorFunction(2, 6), 50);
+});
+
+Deno.test("isSquareFree", () => {
+  assertEquals(Queen.isSquareFree(1), false);
+  assertEquals(Queen.isSquareFree(8), false);
+  assertEquals(Queen.isSquareFree(10), true);
 });
 
 /*

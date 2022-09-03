@@ -27,7 +27,7 @@ const Queen = {
   },
 
   divOf(num: number): number[] {
-    const arr = [];
+    const arr: number[] = [];
     for (let i = 1; i < num + 1; i++) {
       if (num % i === 0) {
         arr.push(i);
@@ -267,6 +267,16 @@ const Queen = {
   //   }
   //   return false;
   // }
+
+  isSquareFree(num: number): boolean {
+    if (num === 1) {
+      return false;
+    }
+    for (let i = 2; i < num + 1; i++) {
+      if (num % i ** 2 === 0) return false;
+    }
+    return true;
+  },
 
   /*
   linear algebra

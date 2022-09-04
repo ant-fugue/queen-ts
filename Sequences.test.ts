@@ -1,6 +1,53 @@
 import Queen from "./Queen.ts";
 import { assertEquals } from "./deps.ts";
 
+// A000032
+// Lucas numbers
+Deno.test("A000032", () => {
+  const genA000032num = (n: number): number => {
+    if (n < 0 || !Number.isInteger(n)) {
+      throw Error("the argument must be non-negative integer");
+    }
+
+    const fibs: Record<string, number> = {};
+    const fib = (n: number): number => {
+      if (fibs[n]) return fibs[n];
+
+      if (n === 0) return 2;
+      if (n === 1) return 1;
+
+      return (fibs[n] = fib(n - 1) + fib(n - 2));
+    };
+    return fib(n);
+  };
+
+  assertEquals(
+    Queen.iota(0, 10).map((elem) => genA000032num(elem)),
+    [2, 1, 3, 4, 7, 11, 18, 29, 47, 76, 123]
+  );
+});
+
+// A000079
+// powers of 2
+Deno.test("A000079", () => {
+  const isA000079 = (num: number): boolean => {
+    if (num === 0) {
+      return false;
+    }
+    while (num > 1) {
+      if (num % 2 !== 0) {
+        return false;
+      }
+      num = num / 2;
+    }
+    return true;
+  };
+  assertEquals(
+    Queen.iota(1, 1000).filter((elem) => isA000079(elem)),
+    [1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
+  );
+});
+
 // A000169
 // n^(n-1)
 Deno.test("A000169", () => {
@@ -27,6 +74,18 @@ Deno.test("A001097", () => {
   assertEquals(
     Queen.iota(1, 100).filter((elem) => isTwinPrime(elem)),
     [3, 5, 7, 11, 13, 17, 19, 29, 31, 41, 43, 59, 61, 71, 73]
+  );
+});
+
+// A005117
+// Squarefree numbers: numbers that are not divisible by a square greater than 1.
+Deno.test("A005117", () => {
+  assertEquals(
+    Queen.iota(1, 50).filter((elem) => Queen.isSquareFree(elem)),
+    [
+      1, 2, 3, 5, 6, 7, 10, 11, 13, 14, 15, 17, 19, 21, 22, 23, 26, 29, 30, 31,
+      33, 34, 35, 37, 38, 39, 41, 42, 43, 46, 47,
+    ]
   );
 });
 

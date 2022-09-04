@@ -270,7 +270,7 @@ const Queen = {
 
   isSquareFree(num: number): boolean {
     if (num === 1) {
-      return false;
+      return true;
     }
     for (let i = 2; i < num + 1; i++) {
       if (num % i ** 2 === 0) return false;

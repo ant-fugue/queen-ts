@@ -1,75 +1,66 @@
 import Queen from "./Queen.ts";
 import { assertEquals } from "./deps.ts";
 
-Deno.test(
-  "getIntArrayFromInt() returns the array which contains integers which are decomposed to digits from original integer",
-  () => {
-    assertEquals(Queen.getIntArrayFromInt(1), [1]);
-    assertEquals(Queen.getIntArrayFromInt(23), [2, 3]);
-    assertEquals(Queen.getIntArrayFromInt(100), [1, 0, 0]);
-  }
-);
+Deno.test("getIntArrayFromInt", () => {
+  assertEquals(Queen.getIntArrayFromInt(1), [1]);
+  assertEquals(Queen.getIntArrayFromInt(23), [2, 3]);
+  assertEquals(Queen.getIntArrayFromInt(100), [1, 0, 0]);
+});
 
 // Deno.test("test",()=>{assertEquals(Queen.iota(2, 1), [])});
-Deno.test("test", () => {
+Deno.test("iota", () => {
   assertEquals(Queen.iota(3, 6), [3, 4, 5, 6]);
 });
-Deno.test("test", () => {
+Deno.test("divOf", () => {
   assertEquals(Queen.divOf(20), [1, 2, 4, 5, 10, 20]);
 });
-Deno.test("test", () => {
+Deno.test("divSum", () => {
   assertEquals(Queen.divSum(20), 42);
 });
-Deno.test("test", () => {
+Deno.test("divProduct", () => {
   assertEquals(Queen.divProduct(12), 1728);
 });
-Deno.test("test", () => {
+Deno.test("numOfDiv", () => {
   assertEquals(Queen.numOfDiv(20), 6);
 });
-Deno.test("test", () => {
+Deno.test("divisorsExceptSelf", () => {
   assertEquals(Queen.divisorsExceptSelf(20), [1, 2, 4, 5, 10]);
 });
-Deno.test("test", () => {
+Deno.test("divSumExceptSelf", () => {
   assertEquals(Queen.divSumExceptSelf(20), 22);
 });
-Deno.test("test", () => {
+Deno.test("numOfDivExceptSelf", () => {
   assertEquals(Queen.numOfDivExceptSelf(20), 5);
 });
 
-Deno.test("test", () => {
-  assertEquals(Queen.divGroup(6), "perfect");
-});
-Deno.test("test", () => {
+Deno.test("divGroup", () => {
   assertEquals(Queen.divGroup(3), "deficient");
-});
-Deno.test("test", () => {
+  assertEquals(Queen.divGroup(6), "perfect");
   assertEquals(Queen.divGroup(18), "surplus");
 });
 
-Deno.test("test", () => {
+Deno.test("perfectNumSeq", () => {
   assertEquals(Queen.perfectNumSeq(1000), [6, 28, 496]);
 });
-Deno.test("test", () => {
+Deno.test("deficientNumSeq", () => {
   assertEquals(
     Queen.deficientNumSeq(20),
     [1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 19]
   );
 });
-Deno.test("test", () => {
+Deno.test("surplusNumSeq", () => {
   assertEquals(Queen.surplusNumSeq(20), [12, 18, 20]);
 });
 
-Deno.test("test", () => {
+Deno.test("isPrime", () => {
   assertEquals(Queen.isPrime(10), false);
-});
-Deno.test("test", () => {
   assertEquals(Queen.isPrime(11), true);
 });
 
-Deno.test("test", () => {
+Deno.test("primeSeq", () => {
   assertEquals(Queen.primeSeq(10), [2, 3, 5, 7]);
 });
-Deno.test("test", () => {
+Deno.test("compositeSeq", () => {
   assertEquals(Queen.compositeSeq(10), [1, 4, 6, 8, 9, 10]);
 });
 
@@ -151,7 +142,7 @@ Deno.test("test", () => {
 });
 
 Deno.test("isSquareFree", () => {
-  assertEquals(Queen.isSquareFree(1), false);
+  assertEquals(Queen.isSquareFree(1), true);
   assertEquals(Queen.isSquareFree(8), false);
   assertEquals(Queen.isSquareFree(10), true);
 });

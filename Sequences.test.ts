@@ -182,25 +182,6 @@ Deno.test("A077684", () => {
   );
 });
 
-// A136162
-Deno.test("A136162", () => {
-  const isPrimeQuadruplet = (num: number) => {
-    return (
-      Queen.isPrime(num) &&
-      Queen.isPrime(num + 2) &&
-      Queen.isPrime(num + 6) &&
-      Queen.isPrime(num + 8)
-    );
-  };
-  assertEquals(
-    Queen.iota(1, 1000).filter((elem) => isPrimeQuadruplet(elem)),
-    [
-      5, 7, 11, 13, 11, 13, 17, 19, 101, 103, 107, 109, 191, 193, 197, 199, 821,
-      823, 827, 829,
-    ]
-  );
-});
-
 // A217401
 // numbers starting with 8
 Deno.test("A217401", () => {

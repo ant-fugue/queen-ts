@@ -19,6 +19,17 @@ Deno.test("A000566", () => {
   );
 });
 
+// A001097
+// twin primes
+Deno.test("A001097", () => {
+  const isTwinPrime = (num: number) =>
+    Queen.isPrime(num) && (Queen.isPrime(num - 2) || Queen.isPrime(num + 2));
+  assertEquals(
+    Queen.iota(1, 100).filter((elem) => isTwinPrime(elem)),
+    [3, 5, 7, 11, 13, 17, 19, 29, 31, 41, 43, 59, 61, 71, 73]
+  );
+});
+
 // harshad number
 // A005349
 // 自然数の各位の数字和が元の数の約数に含まれている自然数
@@ -95,4 +106,108 @@ Deno.test("A020458", () => {
     return targetSeqDigits.map((elem) => parseInt(elem.join("")));
   };
   assertEquals(A020458SeqUnder(10000), [2, 3, 23, 223, 233, 2333, 3323]);
+});
+
+// A023194
+// 約数の和が素数になる数の数列
+Deno.test("A023194", () => {
+  assertEquals(
+    Queen.iota(1, 1000).filter((elem) => Queen.isPrime(Queen.divSum(elem))),
+    [2, 4, 9, 16, 25, 64, 289, 729]
+  );
+});
+
+// A028834
+// 各位の和が素数になる数の数列
+Deno.test("A028834", () => {
+  const isA028834 = (num: number) =>
+    Queen.isPrime(Queen.getIntArrayFromInt(num).reduce((a, c) => a + c, 0));
+  assertEquals(
+    Queen.iota(1, 100).filter((elem) => isA028834(elem)),
+    [
+      2, 3, 5, 7, 11, 12, 14, 16, 20, 21, 23, 25, 29, 30, 32, 34, 38, 41, 43,
+      47, 49, 50, 52, 56, 58, 61, 65, 67, 70, 74, 76, 83, 85, 89, 92, 94, 98,
+    ]
+  );
+});
+
+// A028842
+// 各位の積が素数になる数の数列
+// 素数が一つだけあり、それ以外の桁にひとつでも1以外の数があると、productは合成数になってしまうので、
+// prime + 1の組み合わせになっている。
+const isA028842 = (num: number) =>
+  Queen.isPrime(Queen.getIntArrayFromInt(num).reduce((a, c) => a * c, 1));
+assertEquals(
+  Queen.iota(1, 1000).filter((elem) => isA028842(elem)),
+  [
+    2, 3, 5, 7, 12, 13, 15, 17, 21, 31, 51, 71, 112, 113, 115, 117, 121, 131,
+    151, 171, 211, 311, 511, 711,
+  ]
+);
+
+// A028982
+// Squares and twice squares.
+Deno.test("A028982", () => {
+  assertEquals(
+    Queen.iota(1, 100).filter((elem) => Queen.divSum(elem) % 2 === 1),
+    [1, 2, 4, 8, 9, 16, 18, 25, 32, 36, 49, 50, 64, 72, 81, 98, 100]
+  );
+});
+
+// A034287
+// Numbers whose product of divisors is larger than that of any smaller number.
+Deno.test("A034287", () => {
+  let max = 0;
+  assertEquals(
+    Queen.iota(1, 100).filter((elem) => {
+      const divProduct = Queen.divProduct(elem);
+      if (divProduct > max) {
+        max = divProduct;
+        return true;
+      }
+      return false;
+    }),
+    [1, 2, 3, 4, 6, 8, 10, 12, 18, 20, 24, 30, 36, 48, 60, 72, 84, 90, 96]
+  );
+});
+
+// A077684
+// Squarefree numbers with 8 as their initial digit
+Deno.test("A077684", () => {
+  assertEquals(
+    Queen.iota(1, 100)
+      .filter((elem: number) => Queen.isSquareFree(elem))
+      .filter((e: number) => Queen.getIntArrayFromInt(e)[0] === 8),
+    [82, 83, 85, 86, 87, 89]
+  );
+});
+
+// A136162
+Deno.test("A136162", () => {
+  const isPrimeQuadruplet = (num: number) => {
+    return (
+      Queen.isPrime(num) &&
+      Queen.isPrime(num + 2) &&
+      Queen.isPrime(num + 6) &&
+      Queen.isPrime(num + 8)
+    );
+  };
+  assertEquals(
+    Queen.iota(1, 1000).filter((elem) => isPrimeQuadruplet(elem)),
+    [
+      5, 7, 11, 13, 11, 13, 17, 19, 101, 103, 107, 109, 191, 193, 197, 199, 821,
+      823, 827, 829,
+    ]
+  );
+});
+
+// A217401
+// numbers starting with 8
+Deno.test("A217401", () => {
+  assertEquals(
+    Queen.iota(1, 100).filter(
+      (elem: number) => Queen.getIntArrayFromInt(elem)[0] === 8
+    ),
+    [8, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89]
+  );
 });

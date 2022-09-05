@@ -11,6 +11,30 @@ interface Matrix {
 // }
 
 const Queen = {
+  // https://www.youtube.com/watch?v=cZkGeR9CWbk&t=227s
+  lunar: {
+    add(s1: string, s2: string): string {
+      let tmp = "";
+      for (let i = 0; i < s1.length; i++) {
+        Number(s1[i]) >= Number(s2[i]) ? (tmp += s1[i]) : (tmp += s2[i]);
+      }
+      return tmp;
+    },
+    mult(s1: string, s2: string): string {
+      let tmp = "";
+      let length: number = 0;
+      if (s1.length >= s2.length) {
+        length = s1.length;
+      } else {
+        length = s2.length;
+      }
+      for (let i = 0; i < length; i++) {
+        Number(s1[i]) >= Number(s2[i]) ? (tmp += s2[i]) : (tmp += s1[i]);
+        console.log(tmp);
+      }
+      return tmp;
+    },
+  },
   getIntArrayFromInt(num: number): number[] {
     if (!Number.isInteger(num)) {
       throw Error("the argument must be integers");
@@ -295,29 +319,42 @@ const Queen = {
     return result;
   },
 
-  // https://www.youtube.com/watch?v=cZkGeR9CWbk&t=227s
-  lunar: {
-    add(s1: string, s2: string): string {
-      let tmp = "";
-      for (let i = 0; i < s1.length; i++) {
-        Number(s1[i]) >= Number(s2[i]) ? (tmp += s1[i]) : (tmp += s2[i]);
-      }
-      return tmp;
-    },
-    mult(s1: string, s2: string): string {
-      let tmp = "";
-      let length: number = 0;
-      if (s1.length >= s2.length) {
-        length = s1.length;
+  primeFactor(num: number): Record<string, number> {
+    const obj: Record<string, number> = {};
+    let divisor = 2;
+
+    while (num >= 2) {
+      if (num % divisor === 0) {
+        if (obj[divisor] === undefined) {
+          obj[divisor] = 1;
+        } else {
+          obj[divisor] += 1;
+        }
+        num = num / divisor;
       } else {
-        length = s2.length;
+        divisor++;
       }
-      for (let i = 0; i < length; i++) {
-        Number(s1[i]) >= Number(s2[i]) ? (tmp += s2[i]) : (tmp += s1[i]);
-        console.log(tmp);
-      }
-      return tmp;
-    },
+    }
+    return obj;
+  },
+  isPalindrome(num: number): boolean {
+    if (!Number.isInteger(num)) {
+      throw Error("the argument must be integer");
+    }
+    const str = num.toString();
+    let former: string;
+    let latter: string;
+    if (str.length % 2 === 0) {
+      former = str.substring(Math.floor(str.length / 2), str.length);
+      latter = str.substring(0, Math.floor(str.length / 2));
+    } else {
+      former = str.substring(0, Math.floor(str.length / 2));
+      latter = str.substring(Math.floor(str.length / 2) + 1, str.length);
+    }
+    if (former === latter.split("").reverse().join("")) {
+      return true;
+    }
+    return false;
   },
 };
 

@@ -155,6 +155,18 @@ Deno.test("collatz", () => {
   );
 });
 
+Deno.test("primeFactor", () => {
+  assertEquals(Queen.primeFactor(2), { 2: 1 });
+  assertEquals(Queen.primeFactor(12), { 2: 2, 3: 1 });
+  assertEquals(Queen.primeFactor(60), { 2: 2, 3: 1, 5: 1 });
+});
+
+Deno.test("isPalindrome", () => {
+  assertEquals(Queen.isPalindrome(5), true);
+  assertEquals(Queen.isPalindrome(474), true);
+  assertEquals(Queen.isPalindrome(45), false);
+});
+
 Deno.test("lunar addition keeps the bigger", () => {
   assertEquals(Queen.lunar.add("1", "1"), "1");
   assertEquals(Queen.lunar.add("1", "2"), "2");

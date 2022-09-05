@@ -337,6 +337,20 @@ const Queen = {
     }
     return obj;
   },
+  primeFactorArr(num: number): number[] {
+    const arr: number[] = [];
+    let divisor: number = 2;
+
+    while (num >= 2) {
+      if (num % divisor === 0) {
+        arr.push(divisor);
+        num = num / divisor;
+      } else {
+        divisor++;
+      }
+    }
+    return arr;
+  },
   isPalindrome(num: number): boolean {
     if (!Number.isInteger(num)) {
       throw Error("the argument must be integer");
@@ -355,6 +369,26 @@ const Queen = {
       return true;
     }
     return false;
+  },
+  getQuotient(num: number, divisor: number): number {
+    if (!Number.isInteger(num) || !Number.isInteger(divisor)) {
+      throw Error("the argument must be integers");
+    }
+    if (divisor === 0) {
+      throw Error("division by 0");
+    }
+    return Math.floor(num / divisor);
+  },
+  genNthPolygon(n: number): Record<string, number> {
+    if (!Number.isInteger(n) || n < 3) {
+      throw Error(
+        "the argument must be a natural number which is bigger than 3"
+      );
+    }
+    return {
+      vertex: n,
+      edge: n,
+    };
   },
 };
 

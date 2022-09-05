@@ -57,6 +57,33 @@ Deno.test("A000169", () => {
   );
 });
 
+// A000215
+// Fermat numbers
+Deno.test("A000215", () => {
+  const genA000215Num = (n: number): number => {
+    if (n < 0 || !Number.isInteger(n)) {
+      throw Error("the argument must be non-negative integer");
+    }
+    return 2 ** (2 ** n) + 1;
+  };
+  assertEquals(
+    Queen.iota(0, 5).map((elem) => genA000215Num(elem)),
+    [3, 5, 17, 257, 65537, 4294967297]
+  );
+});
+
+// A000330
+// Square pyramidal numbers: a(n) = 0^2 + 1^2 + 2^2 + ... + n^2 = n*(n+1)*(2*n+1)/6.
+Deno.test("A000330", () => {
+  const nthA000330Number = (n: number): number =>
+    (n * (n + 1) * (2 * n + 1)) / 6;
+
+  assertEquals(
+    Queen.iota(0, 10).map((elem) => nthA000330Number(elem)),
+    [0, 1, 5, 14, 30, 55, 91, 140, 204, 285, 385]
+  );
+});
+
 // A000566
 // 七角数
 Deno.test("A000566", () => {
@@ -66,6 +93,25 @@ Deno.test("A000566", () => {
   );
 });
 
+// A000930
+// Narayana's cows sequence: a(0) = a(1) = a(2) = 1; thereafter a(n) = a(n-1) + a(n-3).
+Deno.test("A000930", () => {
+  const nthA000930Number = (n: number): number => {
+    if (!Number.isInteger(n) || n < 0) {
+      throw Error("arguments must be a natural number");
+    }
+    const items: Record<string, number> = {};
+    if (items[n]) return items[n];
+    if (n <= 2) {
+      return 1;
+    }
+    return (items[n] = nthA000930Number(n - 1) + nthA000930Number(n - 3));
+  };
+  assertEquals(
+    Queen.iota(0, 10).map((elem) => nthA000930Number(elem)),
+    [1, 1, 1, 2, 3, 4, 6, 9, 13, 19, 28]
+  );
+});
 // A001097
 // twin primes
 Deno.test("A001097", () => {
@@ -99,6 +145,25 @@ Deno.test("A002113", () => {
       0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33, 44, 55, 66, 77, 88, 99, 101,
       111, 121, 131, 141, 151, 161, 171, 181, 191,
     ]
+  );
+});
+
+// A003586
+Deno.test("A003586", () => {
+  const isThreeSmoothNum = (num: number): boolean => {
+    if (!Number.isInteger(num) || num < 0) {
+      throw Error("the argument should be integer");
+    }
+    while (num !== 1) {
+      if (num % 2 === 0) num = num / 2;
+      else if (num % 3 === 0) num = num / 3;
+      else return false;
+    }
+    return true;
+  };
+  assertEquals(
+    Queen.iota(1, 100).filter((elem) => isThreeSmoothNum(elem)),
+    [1, 2, 3, 4, 6, 8, 9, 12, 16, 18, 24, 27, 32, 36, 48, 54, 64, 72, 81, 96]
   );
 });
 
@@ -137,6 +202,23 @@ Deno.test("A005117", () => {
     ]
   );
 });
+// A005179
+// Deno.test("A005179", () => {
+//   const A005179SeqUnder = (num: number): number[] => {
+//     const seq = Queen.iota(1, num);
+//     const div = [];
+//     const result = [];
+
+//     seq.forEach((elem: number, i: number) => {
+//       const numOfDiv: number[] = Queen.numOfDiv(elem);
+//       if (!div.includes(numOfDiv)) {
+//         div.push(numOfDiv);
+//         result.push(elem);
+//       }
+//     });
+//     return result;
+//   };
+// });
 
 // harshad number
 // A005349
@@ -313,6 +395,60 @@ Deno.test("A077684", () => {
     [82, 83, 85, 86, 87, 89]
   );
 });
+
+// A087409
+Deno.test("A087409", () => {
+  const generateA087409Sequences = (n: number): number[] => {
+    // generate the sequence of 6 multiples
+    const numberArr: number[] = [];
+    for (let i = 1; i < n + 2; i++) {
+      numberArr.push(6 * i);
+    }
+
+    // create an array which is grouped in pairs by 2
+    const str: string = numberArr.join("");
+    const strArr: string[] = [];
+    for (let i = 0; i < str.length; i += 2) {
+      strArr.push(str[i] + str[i + 1]);
+    }
+    const formattedArr = strArr.slice(0, strArr.length - 1);
+
+    // omitting leading zeros for each element
+    const result = formattedArr.map((elem) => {
+      if (elem.startsWith("0")) {
+        return elem.substring(1);
+      }
+      return elem;
+    });
+
+    return result.map((elem) => parseInt(elem));
+  };
+  assertEquals(
+    generateA087409Sequences(10),
+    [61, 21, 82, 43, 3, 64, 24, 85, 46, 6]
+  );
+});
+
+// isA199988Num(digits: string): boolean {
+//   if (digits.includes("0")) {
+//     return false;
+//   }
+//   let tmp = 1;
+
+//   for (const elem of digits) {
+//     tmp = tmp * parseInt(elem);
+//   }
+
+//   if (tmp === 6) {
+//     return true;
+//   }
+//   return false;
+// },
+
+// A199988SeqUnder(num: number): number[] {
+//   const natSeq = Queen.iota(1, num);
+//   return natSeq.filter((elem) => this.isA199988Num(elem.toString()));
+// },
 
 // A217401
 // numbers starting with 8

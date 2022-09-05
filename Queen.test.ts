@@ -66,11 +66,7 @@ Deno.test("compositeSeq", () => {
 
 Deno.test("test", () => {
   assertEquals(Queen.isHighlyComposite(5), false);
-});
-Deno.test("test", () => {
   assertEquals(Queen.isHighlyComposite(10), false);
-});
-Deno.test("test", () => {
   assertEquals(Queen.isHighlyComposite(12), true);
 });
 
@@ -80,8 +76,6 @@ Deno.test("test", () => {
 
 Deno.test("test", () => {
   assertEquals(Queen.isTriangularNum(10), true);
-});
-Deno.test("test", () => {
   assertEquals(Queen.isTriangularNum(7), false);
 });
 
@@ -102,21 +96,13 @@ Deno.test("test", () => {
 
 Deno.test("test", () => {
   assertEquals(Queen.digitsToBinary(0), "0");
-});
-Deno.test("test", () => {
   assertEquals(Queen.digitsToBinary(10), "1010");
-});
-Deno.test("test", () => {
   assertEquals(Queen.digitsToBinary(15), "1111");
 });
 
 Deno.test("test", () => {
   assertEquals(Queen.isTriangle(0, 0, 3), false);
-});
-Deno.test("test", () => {
   assertEquals(Queen.isTriangle(1, 2, 3), false);
-});
-Deno.test("test", () => {
   assertEquals(Queen.isTriangle(2, 3, 4), true);
 });
 
@@ -129,11 +115,7 @@ Deno.test("test", () => {
 });
 Deno.test("test", () => {
   assertEquals(Queen.isSophieGermanPrime(23), true);
-});
-Deno.test("test", () => {
   assertEquals(Queen.isSophieGermanPrime(10), false);
-});
-Deno.test("test", () => {
   assertEquals(Queen.isSophieGermanPrime(13), false);
 });
 
@@ -161,11 +143,33 @@ Deno.test("primeFactor", () => {
   assertEquals(Queen.primeFactor(60), { 2: 2, 3: 1, 5: 1 });
 });
 
+Deno.test("primeFactorArr", () => {
+  assertEquals(Queen.primeFactorArr(2), [2]);
+  assertEquals(Queen.primeFactorArr(12), [2, 2, 3]);
+  assertEquals(Queen.primeFactorArr(60), [2, 2, 3, 5]);
+});
+
 Deno.test("isPalindrome", () => {
   assertEquals(Queen.isPalindrome(5), true);
   assertEquals(Queen.isPalindrome(474), true);
   assertEquals(Queen.isPalindrome(45), false);
 });
+
+Deno.test(
+  "getQuotient() returns the quotient from the given number and its divisor",
+  () => {
+    assertEquals(Queen.getQuotient(10, 2), 5);
+    assertEquals(Queen.getQuotient(10, 3), 3);
+    assertEquals(Queen.getQuotient(10, 11), 0);
+  }
+);
+
+Deno.test(
+  "getNthPolygon() returns the object which has vertex and edge properties",
+  () => {
+    assertEquals(Queen.genNthPolygon(5), { vertex: 5, edge: 5 });
+  }
+);
 
 Deno.test("lunar addition keeps the bigger", () => {
   assertEquals(Queen.lunar.add("1", "1"), "1");

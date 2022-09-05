@@ -77,6 +77,20 @@ Deno.test("A001097", () => {
   );
 });
 
+Deno.test("A001539", () => {
+  const generateA001539Num = (n: number): number => {
+    if (!Number.isInteger(n)) {
+      throw Error("input should be integer");
+    }
+    return (4 * n + 1) * (4 * n + 3);
+  };
+
+  assertEquals(
+    Queen.iota(0, 10).map((elem) => generateA001539Num(elem)),
+    [3, 35, 99, 195, 323, 483, 675, 899, 1155, 1443, 1763]
+  );
+});
+
 // A002113
 Deno.test("A002113", () => {
   assertEquals(
@@ -84,6 +98,30 @@ Deno.test("A002113", () => {
     [
       0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33, 44, 55, 66, 77, 88, 99, 101,
       111, 121, 131, 141, 151, 161, 171, 181, 191,
+    ]
+  );
+});
+
+// A003601
+Deno.test("A003601", () => {
+  const isA003601 = (n: number): boolean => {
+    if (n <= 0 || !Number.isInteger(n)) {
+      throw Error("the argument must be natural numbers");
+    }
+    const divisors: number[] = Queen.divOf(n);
+    const average = divisors.reduce((acc: number, cur: number) => acc + cur, 0);
+    if (Number.isInteger(average / divisors.length)) {
+      return true;
+    }
+    return false;
+  };
+  assertEquals(
+    Queen.iota(1, 100).filter((elem) => isA003601(elem)),
+    [
+      1, 3, 5, 6, 7, 11, 13, 14, 15, 17, 19, 20, 21, 22, 23, 27, 29, 30, 31, 33,
+      35, 37, 38, 39, 41, 42, 43, 44, 45, 46, 47, 49, 51, 53, 54, 55, 56, 57,
+      59, 60, 61, 62, 65, 66, 67, 68, 69, 70, 71, 73, 77, 78, 79, 83, 85, 86,
+      87, 89, 91, 92, 93, 94, 95, 96, 97, 99,
     ]
   );
 });
@@ -238,6 +276,30 @@ Deno.test("A034287", () => {
       return false;
     }),
     [1, 2, 3, 4, 6, 8, 10, 12, 18, 20, 24, 30, 36, 48, 60, 72, 84, 90, 96]
+  );
+});
+
+// A046459
+// Dudeney numbers: integers equal to the sum of the digits of their cubes.
+Deno.test("A046459", () => {
+  const isA046459Num = (n: number): boolean => {
+    if (n < 0 || !Number.isInteger(n)) {
+      throw Error("the argument must be non-negative integer");
+    }
+    const cube = n * n * n;
+    const result = Queen.getIntArrayFromInt(cube).reduce(
+      (acc, curr) => acc + curr,
+      0
+    );
+    if (n === result) {
+      return true;
+    }
+    return false;
+  };
+
+  assertEquals(
+    Queen.iota(0, 1000).filter((elem) => isA046459Num(elem)),
+    [0, 1, 8, 17, 18, 26, 27]
   );
 });
 

@@ -148,6 +148,34 @@ Deno.test("A002113", () => {
   );
 });
 
+// A003159
+Deno.test("A003159", () => {
+  const isA003159 = (num: number): boolean => {
+    const binRepReverse = Queen.digitsToBinary(num)
+      .split("")
+      .reverse()
+      .join("");
+    let counter: number = 0;
+    for (let i = 0; i < binRepReverse.length; i++) {
+      if (binRepReverse[i] === "1") {
+        break;
+      }
+      if (binRepReverse[i] === "0") {
+        counter++;
+      }
+    }
+    return counter % 2 === 0;
+  };
+
+  assertEquals(
+    Queen.iota(1, 50).filter((elem) => isA003159(elem)),
+    [
+      1, 3, 4, 5, 7, 9, 11, 12, 13, 15, 16, 17, 19, 20, 21, 23, 25, 27, 28, 29,
+      31, 33, 35, 36, 37, 39, 41, 43, 44, 45, 47, 48, 49,
+    ]
+  );
+});
+
 // A003586
 Deno.test("A003586", () => {
   const isThreeSmoothNum = (num: number): boolean => {

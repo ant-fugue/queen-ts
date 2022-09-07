@@ -214,7 +214,8 @@ const Queen = {
   digitsToBinary(num: number): string {
     let result = "";
     let index = 0;
-    while (2 ** (index + 1) < num) {
+
+    while (2 ** (index + 1) <= num) {
       index = index + 1;
     }
 
@@ -227,6 +228,7 @@ const Queen = {
         result += "0";
       }
     }
+
     return result;
   },
 

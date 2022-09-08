@@ -148,6 +148,15 @@ Deno.test("A002113", () => {
   );
 });
 
+// Deno.test("A0035123", () => {
+//   const isA035123 = (n: number): boolean => {
+//   };
+//   assertEquals(
+//     Queen.iota(1, 200).filter((elem) => isA035123(elem)),
+//     [12, 13, 21, 31, 33, 99, 102, 103, 112, 113, 122]
+//   );
+// });
+
 // A003159
 Deno.test("A003159", () => {
   const isA003159 = (num: number): boolean => {
@@ -372,6 +381,27 @@ Deno.test("A028982", () => {
   );
 });
 
+// A033294
+// Squares which when written backwards remain square (final 0's excluded)
+const isA033294 = (n: number): boolean => {
+  if (!Number.isInteger(Math.sqrt(n))) {
+    return false;
+  }
+  const numStr = n.toString();
+  if (numStr.endsWith("0")) {
+    return false;
+  }
+  // squares remaining square when written backwards
+  const revNum = parseInt(numStr.split("").reverse().join(""));
+  return Number.isInteger(Math.sqrt(revNum));
+};
+Deno.test("A033294", () => {
+  assertEquals(
+    Queen.iota(1, 1000).filter((elem) => isA033294(elem)),
+    [1, 4, 9, 121, 144, 169, 441, 484, 676, 961]
+  );
+});
+
 // A034287
 // Numbers whose product of divisors is larger than that of any smaller number.
 Deno.test("A034287", () => {
@@ -388,6 +418,39 @@ Deno.test("A034287", () => {
     [1, 2, 3, 4, 6, 8, 10, 12, 18, 20, 24, 30, 36, 48, 60, 72, 84, 90, 96]
   );
 });
+
+const isA035090 = (n: number): boolean => {
+  if (!isA033294(n)) {
+    return false;
+  }
+  return !Queen.isPalindrome(n);
+};
+
+// A035090
+// Non-palindromic squares which when written backwards remain square
+Deno.test("A035090", () => {
+  assertEquals(
+    Queen.iota(1, 10000).filter((elem) => isA035090(elem)),
+    [144, 169, 441, 961, 1089, 9801]
+  );
+});
+
+const isA035123 = (n: number): boolean => {
+  if (!isA035090(n ** 2)) {
+    return false;
+  }
+  return Number.isInteger(Math.sqrt(n));
+};
+
+// A035123
+// Roots of 'non-palindromic squares remaining square when written backwards'.
+// [ ] revise later
+// Deno.test("A035123", () => {
+//   assertEquals(
+//     Queen.iota(1, 200).filter((elem) => isA035123(elem)),
+//     [12, 13, 21, 31, 33, 99, 102, 103, 112, 113, 122]
+//   );
+// });
 
 // A046459
 // Dudeney numbers: integers equal to the sum of the digits of their cubes.
@@ -486,5 +549,16 @@ Deno.test("A217401", () => {
       (elem: number) => Queen.getIntArrayFromInt(elem)[0] === 8
     ),
     [8, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89]
+  );
+});
+
+// A319388
+// Non-palindromic squares.
+Deno.test("A319388", () => {
+  assertEquals(
+    Queen.iota(1, 200)
+      .filter((elem) => Number.isInteger(Math.sqrt(elem)))
+      .filter((e) => !Queen.isPalindrome(e)),
+    [16, 25, 36, 49, 64, 81, 100, 144, 169, 196]
   );
 });

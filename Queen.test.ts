@@ -124,6 +124,12 @@ Deno.test("test", () => {
   assertEquals(Queen.divisorFunction(2, 6), 50);
 });
 
+Deno.test("isSquare", () => {
+  assertEquals(Queen.isSquare(1), true);
+  assertEquals(Queen.isSquare(16), true);
+  assertEquals(Queen.isSquare(5), false);
+});
+
 Deno.test("isSquareFree", () => {
   assertEquals(Queen.isSquareFree(1), true);
   assertEquals(Queen.isSquareFree(8), false);

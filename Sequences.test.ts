@@ -318,6 +318,23 @@ Deno.test("A007691", () => {
   );
 });
 
+// https://www.youtube.com/watch?v=prh72BLNjIk
+// [ ] do later
+const genA010060 = (i: number): any => {
+  if (!Number.isInteger(i) || i < 0) {
+    throw Error("the argument must be non-negative integers");
+  }
+
+  if (i === 0) return "0";
+  if (i === 1) return "1";
+  if (i === 2) return "10";
+
+  return (
+    genA010060(i - 1).toString() +
+    (genA010060(i - 1) ^ genA010060(i - 1)).toString()
+  );
+};
+
 // A020458
 // Primes that is composed from 2 and 3 only.
 Deno.test("A020458", () => {
@@ -384,7 +401,7 @@ Deno.test("A028982", () => {
 // A033294
 // Squares which when written backwards remain square (final 0's excluded)
 const isA033294 = (n: number): boolean => {
-  if (!Number.isInteger(Math.sqrt(n))) {
+  if (!Queen.isSquare(n)) {
     return false;
   }
   const numStr = n.toString();
@@ -520,22 +537,30 @@ Deno.test("A087409", () => {
   );
 });
 
-// isA199988Num(digits: string): boolean {
-//   if (digits.includes("0")) {
-//     return false;
-//   }
-//   let tmp = 1;
+// A138591
+// often called as "polite numbers"
+const isPowersOfTwo = (num: number): boolean => {
+  if (num === 0 || num === 1) {
+    return false;
+  }
+  let result = true;
+  while (num !== 1) {
+    if (num % 2 === 0) {
+      num = num / 2;
+    } else {
+      result = false;
+      break;
+    }
+  }
+  return result;
+};
 
-//   for (const elem of digits) {
-//     tmp = tmp * parseInt(elem);
-//   }
-
-//   if (tmp === 6) {
-//     return true;
-//   }
-//   return false;
-// },
-
+Deno.test("A138591", () => {
+  assertEquals(
+    Queen.iota(1, 20).filter((elem) => !isPowersOfTwo(elem)),
+    [1, 3, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20]
+  );
+});
 // A199988SeqUnder(num: number): number[] {
 //   const natSeq = Queen.iota(1, num);
 //   return natSeq.filter((elem) => this.isA199988Num(elem.toString()));

@@ -20,20 +20,21 @@ const Queen = {
       }
       return tmp;
     },
-    mult(s1: string, s2: string): string {
-      let tmp = "";
-      let length: number = 0;
-      if (s1.length >= s2.length) {
-        length = s1.length;
-      } else {
-        length = s2.length;
-      }
-      for (let i = 0; i < length; i++) {
-        Number(s1[i]) >= Number(s2[i]) ? (tmp += s2[i]) : (tmp += s1[i]);
-        console.log(tmp);
-      }
-      return tmp;
-    },
+    // [ ] need to fix
+    // mult(s1: string, s2: string): string {
+    //   let tmp = "";
+    //   let length: number = 0;
+    //   if (s1.length >= s2.length) {
+    //     length = s1.length;
+    //   } else {
+    //     length = s2.length;
+    //   }
+    //   for (let i = 0; i < length; i++) {
+    //     Number(s1[i]) >= Number(s2[i]) ? (tmp += s2[i]) : (tmp += s1[i]);
+    //     console.log(tmp);
+    //   }
+    //   return tmp;
+    // },
   },
   getIntArrayFromInt(num: number): number[] {
     if (!Number.isInteger(num)) {
@@ -293,6 +294,11 @@ const Queen = {
   //   }
   //   return false;
   // }
+
+  isSquare(num: number): boolean {
+    const result = Number.isInteger(Math.sqrt(num)) ? true : false;
+    return result;
+  },
 
   isSquareFree(num: number): boolean {
     if (num === 1) {

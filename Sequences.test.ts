@@ -2,28 +2,48 @@ import Queen from "./Queen.ts";
 import { assertEquals } from "./deps.ts";
 
 // A000032
-// Lucas numbers
+// Lucas numbers beginning with 2
 Deno.test("A000032", () => {
-  const genA000032num = (n: number): number => {
+  const genLucasNum = (n: number): number => {
     if (n < 0 || !Number.isInteger(n)) {
       throw Error("the argument must be non-negative integer");
     }
 
-    const fibs: Record<string, number> = {};
-    const fib = (n: number): number => {
-      if (fibs[n]) return fibs[n];
+    const lucas: Record<string, number> = {};
+    const luca = (n: number): number => {
+      if (lucas[n]) return lucas[n];
 
       if (n === 0) return 2;
       if (n === 1) return 1;
 
-      return (fibs[n] = fib(n - 1) + fib(n - 2));
+      return (lucas[n] = luca(n - 1) + luca(n - 2));
     };
-    return fib(n);
+    return luca(n);
   };
-
+  const isLucasNum = (
+    query: number,
+    count: number = 1,
+    last: number = 2
+  ): boolean => {
+    if (query === 1 || query === 2) {
+      return true;
+    }
+    if (count < query) {
+      return isLucasNum(query, count + last, count);
+    }
+    if (count === query) {
+      return true;
+    }
+    return false;
+  };
   assertEquals(
-    Queen.iota(0, 10).map((elem) => genA000032num(elem)),
+    Queen.iota(0, 10).map((elem) => genLucasNum(elem)),
     [2, 1, 3, 4, 7, 11, 18, 29, 47, 76, 123]
+  );
+  // the order of first two element is different from the original
+  assertEquals(
+    Queen.iota(1, 200).filter((elem) => isLucasNum(elem)),
+    [1, 2, 3, 4, 7, 11, 18, 29, 47, 76, 123, 199]
   );
 });
 

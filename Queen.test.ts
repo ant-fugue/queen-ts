@@ -151,6 +151,7 @@ Deno.test("primeFactor", () => {
 });
 
 Deno.test("primeFactorArr", () => {
+  assertEquals(Queen.primeFactorArr(1), [1]);
   assertEquals(Queen.primeFactorArr(2), [2]);
   assertEquals(Queen.primeFactorArr(12), [2, 2, 3]);
   assertEquals(Queen.primeFactorArr(60), [2, 2, 3, 5]);

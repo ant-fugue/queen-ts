@@ -50,7 +50,7 @@ Deno.test("A000032", () => {
 // A000079
 // powers of 2
 Deno.test("A000079", () => {
-  const isA000079 = (num: number): boolean => {
+  const isPowersOfTwo = (num: number): boolean => {
     if (num === 0) {
       return false;
     }
@@ -63,7 +63,7 @@ Deno.test("A000079", () => {
     return true;
   };
   assertEquals(
-    Queen.iota(1, 1000).filter((elem) => isA000079(elem)),
+    Queen.iota(1, 1000).filter((elem) => isPowersOfTwo(elem)),
     [1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
   );
 });
@@ -80,15 +80,54 @@ Deno.test("A000169", () => {
 // A000215
 // Fermat numbers
 Deno.test("A000215", () => {
-  const genA000215Num = (n: number): number => {
+  const genFermatNum = (n: number): number => {
     if (n < 0 || !Number.isInteger(n)) {
       throw Error("the argument must be non-negative integer");
     }
     return 2 ** (2 ** n) + 1;
   };
+  // [ ] need to find more optimized answer
+  const isFermatNum = (n: number): boolean => {
+    if (n < 3) {
+      return false;
+    }
+    if (n === 3) {
+      return true;
+    }
+    const arr = Queen.primeFactorArr(n - 1);
+    if (
+      arr.every((element) => element === 2) &&
+      arr.length % 2 === 0 &&
+      isPowersOfTwo(arr.length)
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   assertEquals(
-    Queen.iota(0, 5).map((elem) => genA000215Num(elem)),
+    Queen.iota(0, 5).map((elem) => genFermatNum(elem)),
     [3, 5, 17, 257, 65537, 4294967297]
+  );
+  assertEquals(
+    Queen.iota(0, 1000).filter((elem) => isFermatNum(elem)),
+    [3, 5, 17, 257]
+  );
+});
+
+// A000244
+// powers of 3
+const isPowersOfThree = (num: number): boolean => {
+  if (num === 1) {
+    return true;
+  }
+  return Queen.primeFactorArr(num).every((elem) => elem === 3);
+};
+
+Deno.test("A000244", () => {
+  assertEquals(
+    Queen.iota(1, 1000).filter((elem) => isPowersOfThree(elem)),
+    [1, 3, 9, 27, 81, 243, 729]
   );
 });
 
@@ -560,24 +599,22 @@ Deno.test("A087409", () => {
 // A138591
 // often called as "polite numbers"
 const isPowersOfTwo = (num: number): boolean => {
-  if (num === 0 || num === 1) {
-    return false;
+  if (num === 1) {
+    return true;
   }
-  let result = true;
-  while (num !== 1) {
-    if (num % 2 === 0) {
-      num = num / 2;
-    } else {
-      result = false;
-      break;
-    }
+  return Queen.primeFactorArr(num).every((elem) => elem === 2);
+};
+
+const isPoliteNumber = (num: number): boolean => {
+  if (num === 1) {
+    return true;
   }
-  return result;
+  return !isPowersOfTwo(num);
 };
 
 Deno.test("A138591", () => {
   assertEquals(
-    Queen.iota(1, 20).filter((elem) => !isPowersOfTwo(elem)),
+    Queen.iota(1, 20).filter((elem) => isPoliteNumber(elem)),
     [1, 3, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20]
   );
 });

@@ -346,6 +346,9 @@ const Queen = {
     return obj;
   },
   primeFactorArr(num: number): number[] {
+    if (num === 1) {
+      return [1];
+    }
     const arr: number[] = [];
     let divisor: number = 2;
 

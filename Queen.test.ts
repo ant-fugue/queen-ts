@@ -1,5 +1,40 @@
 import Queen from "./Queen.ts";
-import { assertEquals } from "./deps.ts";
+import { assertEquals, assertThrows } from "./deps.ts";
+
+Deno.test("error check", () => {
+  assertEquals(Queen.checkInputIsInt(1), true);
+  assertEquals(Queen.checkInputIsInt(-1), true);
+  assertThrows(
+    () => Queen.checkInputIsInt(0.3),
+    Error,
+    "input must be integer"
+  );
+
+  assertEquals(Queen.checkInputIsZeroOrPositiveInt(0), true);
+  assertEquals(Queen.checkInputIsZeroOrPositiveInt(1), true);
+  assertThrows(
+    () => Queen.checkInputIsZeroOrPositiveInt(-1),
+    Error,
+    "input must be integer more than 0"
+  );
+
+  assertEquals(Queen.checkInputIsInt(1), true);
+  assertThrows(
+    () => Queen.checkInputIsZeroOrPositiveInt(3.7),
+    Error,
+    "input must be integer more than 0"
+  );
+  assertThrows(
+    () => Queen.checkInputIsNat(0.5),
+    Error,
+    "input must be natural number"
+  );
+  assertThrows(
+    () => Queen.checkInputIsNat(-1),
+    Error,
+    "input must be natural number"
+  );
+});
 
 Deno.test("getIntArrayFromInt", () => {
   assertEquals(Queen.getIntArrayFromInt(1), [1]);
@@ -53,6 +88,8 @@ Deno.test("surplusNumSeq", () => {
 });
 
 Deno.test("isPrime", () => {
+  assertEquals(Queen.isPrime(1), false);
+  assertEquals(Queen.isPrime(2), true);
   assertEquals(Queen.isPrime(10), false);
   assertEquals(Queen.isPrime(11), true);
 });
@@ -179,6 +216,14 @@ Deno.test(
   }
 );
 
+Deno.test("isPowersOf", () => {
+  assertEquals(Queen.isPowersOf(1, 5), true);
+  assertEquals(Queen.isPowersOf(16, 2), true);
+  assertEquals(Queen.isPowersOf(81, 3), true);
+  assertEquals(Queen.isPowersOf(169, 13), true);
+  assertEquals(Queen.isPowersOf(170, 13), false);
+});
+
 Deno.test("lunar addition keeps the bigger", () => {
   assertEquals(Queen.lunar.add("1", "1"), "1");
   assertEquals(Queen.lunar.add("1", "2"), "2");
@@ -196,24 +241,91 @@ Deno.test("lunar addition keeps the bigger", () => {
   linear algebra
 */
 
-// (() => {
-//   const m = Queen.matrix.create(3, 2)});
-//   const addTest = Queen.matrix.add(m, 5);
-//   Deno.test("test",()=>{assertEquals(addTest.matrix, [
-//     [5, 5],
-//     [5, 5],
-//     [5, 5],
-//   ])});
-//   const scalarTest = Queen.matrix.multiply(addTest, 3);
-//   Deno.test("test",()=>{assertEquals(scalarTest.matrix, [
-//     [15, 15],
-//     [15, 15],
-//     [15, 15],
-//   ])})
-// ();
+Deno.test("create matrix", () => {
+  assertEquals(Queen.matrix.create(0, 0), {
+    rows: 0,
+    cols: 0,
+    m: [],
+  });
+  assertEquals(Queen.matrix.create(3, 4), {
+    rows: 3,
+    cols: 4,
+    m: [
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+    ],
+  });
+});
 
-// Deno.test("test",()=>{assertEquals(Queen.scalar([2, 8, 9], 2), [4, 16, 18])});
-// Deno.test("test",()=>{assertEquals(Queen.scalar([2, 8, 9], -2), [-4, -16, -18])});
-// Deno.test("test",()=>{assertEquals(Queen.scalar([2, 8, 9], 0), [0, 0, 0])});
-// Deno.test("test",()=>{assertEquals(Queen.elementwise([1, 2, 3], [4, 5, 6]), [5, 7, 9])});
-// Deno.test("test",()=>{assertEquals(Queen.elementwise([1, 2, 3], [0, 0, 0]), [1, 2, 3])});
+Deno.test("add", () => {
+  const mat = {
+    rows: 3,
+    cols: 2,
+    m: [
+      [2, 4],
+      [0, 1],
+      [3, 2],
+    ],
+  };
+  assertEquals(Queen.matrix.add(mat, 5), {
+    rows: 3,
+    cols: 2,
+    m: [
+      [7, 9],
+      [5, 6],
+      [8, 7],
+    ],
+  });
+});
+
+Deno.test("multiply", () => {
+  const mat = {
+    rows: 3,
+    cols: 2,
+    m: [
+      [2, 4],
+      [0, 1],
+      [3, 2],
+    ],
+  };
+  assertEquals(Queen.matrix.multiply(mat, 3), {
+    rows: 3,
+    cols: 2,
+    m: [
+      [6, 12],
+      [0, 3],
+      [9, 6],
+    ],
+  });
+});
+
+Deno.test("elementwise", () => {
+  const m1 = {
+    rows: 3,
+    cols: 2,
+    m: [
+      [2, 4],
+      [0, 1],
+      [3, 2],
+    ],
+  };
+  const m2 = {
+    rows: 3,
+    cols: 2,
+    m: [
+      [6, 12],
+      [0, 3],
+      [9, 6],
+    ],
+  };
+  assertEquals(Queen.matrix.elementwise(m1, m2), {
+    rows: 3,
+    cols: 2,
+    m: [
+      [8, 16],
+      [0, 4],
+      [12, 8],
+    ],
+  });
+});

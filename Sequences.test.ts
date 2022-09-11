@@ -1,6 +1,9 @@
 import Queen from "./Queen.ts";
 import { assertEquals } from "./deps.ts";
 
+const isPowersOfTwo = (num: number): boolean => Queen.isPowersOf(num, 2);
+const isPowersOfThree = (num: number): boolean => Queen.isPowersOf(num, 3);
+
 // A000032
 // Lucas numbers beginning with 2
 Deno.test("A000032", () => {
@@ -50,18 +53,6 @@ Deno.test("A000032", () => {
 // A000079
 // powers of 2
 Deno.test("A000079", () => {
-  const isPowersOfTwo = (num: number): boolean => {
-    if (num === 0) {
-      return false;
-    }
-    while (num > 1) {
-      if (num % 2 !== 0) {
-        return false;
-      }
-      num = num / 2;
-    }
-    return true;
-  };
   assertEquals(
     Queen.iota(1, 1000).filter((elem) => isPowersOfTwo(elem)),
     [1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
@@ -117,13 +108,6 @@ Deno.test("A000215", () => {
 
 // A000244
 // powers of 3
-const isPowersOfThree = (num: number): boolean => {
-  if (num === 1) {
-    return true;
-  }
-  return Queen.primeFactorArr(num).every((elem) => elem === 3);
-};
-
 Deno.test("A000244", () => {
   assertEquals(
     Queen.iota(1, 1000).filter((elem) => isPowersOfThree(elem)),
@@ -598,12 +582,6 @@ Deno.test("A087409", () => {
 
 // A138591
 // often called as "polite numbers"
-const isPowersOfTwo = (num: number): boolean => {
-  if (num === 1) {
-    return true;
-  }
-  return Queen.primeFactorArr(num).every((elem) => elem === 2);
-};
 
 const isPoliteNumber = (num: number): boolean => {
   if (num === 1) {

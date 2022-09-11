@@ -1,7 +1,7 @@
 interface Matrix {
   rows: number;
   cols: number;
-  matrix: any[];
+  m: Array<number[]>;
 }
 
 // interface Matrix<Arr> {
@@ -36,10 +36,80 @@ const Queen = {
     //   return tmp;
     // },
   },
-  getIntArrayFromInt(num: number): number[] {
-    if (!Number.isInteger(num)) {
-      throw Error("the argument must be integers");
+  matrix: {
+    create(rows: number, cols: number): Matrix {
+      const m: Array<number[]> = [];
+      for (let i = 0; i < rows; i++) {
+        m[i] = [];
+        for (let j = 0; j < cols; j++) {
+          m[i][j] = 0;
+        }
+      }
+      return { rows: rows, cols: cols, m: m };
+    },
+
+    add(m: Matrix, n: number): Matrix {
+      const newMat = Object.assign(m);
+      for (let i = 0; i < newMat.rows; i++) {
+        for (let j = 0; j < newMat.cols; j++) {
+          newMat.m[i][j] += n;
+        }
+      }
+
+      return newMat;
+    },
+    randomize(m: Matrix, n: number): Matrix {
+      const newMat = Object.assign(m);
+      for (let i = 0; i < newMat.rows; i++) {
+        for (let j = 0; j < newMat.cols; j++) {
+          newMat.m[i][j] = Math.floor(Math.random() * n);
+        }
+      }
+      return newMat;
+    },
+
+    multiply(m: Matrix, multiplier: number): Matrix {
+      const newMat = Object.assign(m);
+      for (let i = 0; i < newMat.rows; i++) {
+        for (let j = 0; j < newMat.cols; j++) {
+          newMat.m[i][j] *= multiplier;
+        }
+      }
+      return newMat;
+    },
+    elementwise(m: Matrix, n: Matrix): Matrix {
+      // return vec1.map((elem, i) => elem + vec2[i]);
+      const newMat = Object.assign(m);
+      for (let i = 0; i < newMat.rows; i++) {
+        for (let j = 0; j < newMat.cols; j++) {
+          newMat.m[i][j] = m.m[i][j] + n.m[i][j];
+        }
+      }
+      return newMat;
+    },
+  },
+
+  checkInputIsZeroOrPositiveInt(n: number): boolean | Error {
+    if (n < 0 || !Number.isInteger(n)) {
+      throw Error("input must be integer more than 0");
     }
+    return true;
+  },
+  checkInputIsInt(n: number): boolean | Error {
+    if (!Number.isInteger(n)) {
+      throw Error("input must be integer");
+    }
+    return true;
+  },
+  checkInputIsNat(n: number): boolean | Error {
+    if (n < 0 || !Number.isInteger(n)) {
+      throw Error("input must be natural number");
+    }
+    return true;
+  },
+
+  getIntArrayFromInt(num: number): number[] {
+    this.checkInputIsInt(num);
     return num
       .toString()
       .split("")
@@ -47,11 +117,14 @@ const Queen = {
   },
 
   iota(min: number, max: number): number[] {
+    this.checkInputIsInt(min);
+    this.checkInputIsInt(max);
     const length = max - min + 1;
     return new Array(length).fill(0).map((elem, i) => min + i);
   },
 
   divOf(num: number): number[] {
+    this.checkInputIsNat(num);
     const arr: number[] = [];
     for (let i = 1; i < num + 1; i++) {
       if (num % i === 0) {
@@ -62,29 +135,42 @@ const Queen = {
   },
 
   numOfDiv(num: number): number {
+    this.checkInputIsNat(num);
     return this.divOf(num).length;
   },
 
   divSum(num: number): number {
+    this.checkInputIsNat(num);
+
     return this.divOf(num).reduce((a, c) => a + c, 0);
   },
   divProduct(num: number): number {
+    this.checkInputIsNat(num);
+
     return this.divOf(num).reduce((a, c) => a * c, 1);
   },
   divisorsExceptSelf(num: number): number[] {
+    this.checkInputIsNat(num);
+
     const arr = this.divOf(num);
     return arr.slice(0, arr.length - 1);
   },
 
   numOfDivExceptSelf(num: number): number {
+    this.checkInputIsNat(num);
+
     return this.divisorsExceptSelf(num).length;
   },
 
   divSumExceptSelf(num: number): number {
+    this.checkInputIsNat(num);
+
     return this.divisorsExceptSelf(num).reduce((a, c) => a + c, 0);
   },
 
   divGroup(num: number): string {
+    this.checkInputIsNat(num);
+
     if (this.divSumExceptSelf(num) === num) {
       return "perfect";
     } else if (this.divSumExceptSelf(num) > num) {
@@ -96,26 +182,33 @@ const Queen = {
   },
 
   perfectNumSeq(num: number): number[] {
+    this.checkInputIsNat(num);
+
     const arr = this.iota(1, num);
     return arr.filter((elem) => this.divGroup(elem) === "perfect");
   },
 
   surplusNumSeq(num: number): number[] {
+    this.checkInputIsNat(num);
+
     const arr = this.iota(1, num);
     return arr.filter((elem) => this.divGroup(elem) === "surplus");
   },
 
   deficientNumSeq(num: number): number[] {
+    this.checkInputIsNat(num);
+
     const arr = this.iota(1, num);
     return arr.filter((elem) => this.divGroup(elem) === "deficient");
   },
 
   isPrime(num: number): boolean {
-    if (num < 2) {
+    this.checkInputIsNat(num);
+
+    if (num === 1) {
       return false;
     }
 
-    // num - 1が2の場合は、ループに入らずにtrueを返すので正解だが、1,0,負の数の対応も必要だよね。。
     const arr = this.iota(2, num - 1);
     for (const item of arr) {
       if (num % item === 0) {
@@ -127,16 +220,22 @@ const Queen = {
   },
 
   primeSeq(num: number): number[] {
+    this.checkInputIsNat(num);
+
     const arr = this.iota(1, num);
     return arr.filter((elem: number) => this.isPrime(elem));
   },
 
   compositeSeq(num: number): number[] {
+    this.checkInputIsNat(num);
+
     const arr = this.iota(1, num);
     return arr.filter((elem) => !this.isPrime(elem));
   },
 
   isHighlyComposite(num: number): boolean {
+    this.checkInputIsNat(num);
+
     if (Queen.isPrime(num)) {
       return false;
     }
@@ -165,11 +264,13 @@ const Queen = {
   },
 
   highlyCompositeSeq(num: number): number[] {
+    this.checkInputIsNat(num);
     const arr = this.compositeSeq(num);
     return arr.filter((elem) => this.isHighlyComposite(elem));
   },
 
   isTriangularNum(num: number): boolean {
+    this.checkInputIsNat(num);
     const tmp = (-1 + Math.sqrt(1 + 8 * num)) / 2;
     if (Number.isInteger(tmp)) {
       return true;
@@ -178,11 +279,13 @@ const Queen = {
   },
 
   triangleNumSeq(num: number): number[] {
+    this.checkInputIsZeroOrPositiveInt(num);
     const arr = this.iota(0, num);
     return arr.filter((elem) => this.isTriangularNum(elem));
   },
 
   sigma(initial: number, final: number, body: any): number {
+    // [ ] type check
     if (initial > final) {
       return 0;
     }
@@ -400,6 +503,12 @@ const Queen = {
       vertex: n,
       edge: n,
     };
+  },
+  isPowersOf(n: number, p: number) {
+    if (n === 1) {
+      return true;
+    }
+    return this.primeFactorArr(n).every((elem) => elem === p);
   },
 };
 

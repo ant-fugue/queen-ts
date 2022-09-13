@@ -157,14 +157,14 @@ Deno.test("A000930", () => {
 });
 // A001097
 // twin primes
-Deno.test("A001097", () => {
-  const isTwinPrime = (num: number) =>
-    Queen.isPrime(num) && (Queen.isPrime(num - 2) || Queen.isPrime(num + 2));
-  assertEquals(
-    Queen.iota(1, 100).filter((elem) => isTwinPrime(elem)),
-    [3, 5, 7, 11, 13, 17, 19, 29, 31, 41, 43, 59, 61, 71, 73]
-  );
-});
+// Deno.test("A001097", () => {
+//   const isTwinPrime = (num: number) =>
+//     Queen.isPrime(num) && (Queen.isPrime(num - 2) || Queen.isPrime(num + 2));
+//   assertEquals(
+//     Queen.iota(1, 100).filter((elem) => isTwinPrime(elem)),
+//     [3, 5, 7, 11, 13, 17, 19, 29, 31, 41, 43, 59, 61, 71, 73]
+//   );
+// });
 
 Deno.test("A001539", () => {
   const generateA001539Num = (n: number): number => {
@@ -422,15 +422,17 @@ Deno.test("A028834", () => {
 // 各位の積が素数になる数の数列
 // 素数が一つだけあり、それ以外の桁にひとつでも1以外の数があると、productは合成数になってしまうので、
 // prime + 1の組み合わせになっている。
-const isA028842 = (num: number) =>
-  Queen.isPrime(Queen.getIntArrayFromInt(num).reduce((a, c) => a * c, 1));
-assertEquals(
-  Queen.iota(1, 1000).filter((elem) => isA028842(elem)),
-  [
-    2, 3, 5, 7, 12, 13, 15, 17, 21, 31, 51, 71, 112, 113, 115, 117, 121, 131,
-    151, 171, 211, 311, 511, 711,
-  ]
-);
+// Deno.test("A028842",()=> {
+//   const isA028842 = (num: number) =>
+//     Queen.isPrime(Queen.getIntArrayFromInt(num).reduce((a, c) => a * c, 1));
+//   assertEquals(
+//     Queen.iota(1, 1000).filter((elem) => isA028842(elem)),
+//     [
+//       2, 3, 5, 7, 12, 13, 15, 17, 21, 31, 51, 71, 112, 113, 115, 117, 121, 131,
+//       151, 171, 211, 311, 511, 711,
+//     ]
+//   );
+// })
 
 // A028982
 // Squares and twice squares.

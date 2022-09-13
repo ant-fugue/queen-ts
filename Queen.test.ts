@@ -10,17 +10,17 @@ Deno.test("error check", () => {
     "input must be integer"
   );
 
-  assertEquals(Queen.checkInputIsZeroOrPositiveInt(0), true);
-  assertEquals(Queen.checkInputIsZeroOrPositiveInt(1), true);
+  assertEquals(Queen.checkInputIsNonNegativeInt(0), true);
+  assertEquals(Queen.checkInputIsNonNegativeInt(1), true);
   assertThrows(
-    () => Queen.checkInputIsZeroOrPositiveInt(-1),
+    () => Queen.checkInputIsNonNegativeInt(-1),
     Error,
     "input must be integer more than 0"
   );
 
   assertEquals(Queen.checkInputIsInt(1), true);
   assertThrows(
-    () => Queen.checkInputIsZeroOrPositiveInt(3.7),
+    () => Queen.checkInputIsNonNegativeInt(3.7),
     Error,
     "input must be integer more than 0"
   );

@@ -89,7 +89,7 @@ const Queen = {
     },
   },
 
-  checkInputIsZeroOrPositiveInt(n: number): boolean | Error {
+  checkInputIsNonNegativeInt(n: number): boolean | Error {
     if (n < 0 || !Number.isInteger(n)) {
       throw Error("input must be integer more than 0");
     }
@@ -124,7 +124,7 @@ const Queen = {
   },
 
   divOf(num: number): number[] {
-    this.checkInputIsNat(num);
+    this.checkInputIsNonNegativeInt(num);
     const arr: number[] = [];
     for (let i = 1; i < num + 1; i++) {
       if (num % i === 0) {
@@ -135,41 +135,41 @@ const Queen = {
   },
 
   numOfDiv(num: number): number {
-    this.checkInputIsNat(num);
+    this.checkInputIsNonNegativeInt(num);
     return this.divOf(num).length;
   },
 
   divSum(num: number): number {
-    this.checkInputIsNat(num);
+    this.checkInputIsNonNegativeInt(num);
 
     return this.divOf(num).reduce((a, c) => a + c, 0);
   },
   divProduct(num: number): number {
-    this.checkInputIsNat(num);
+    this.checkInputIsNonNegativeInt(num);
 
     return this.divOf(num).reduce((a, c) => a * c, 1);
   },
   divisorsExceptSelf(num: number): number[] {
-    this.checkInputIsNat(num);
+    this.checkInputIsNonNegativeInt(num);
 
     const arr = this.divOf(num);
     return arr.slice(0, arr.length - 1);
   },
 
   numOfDivExceptSelf(num: number): number {
-    this.checkInputIsNat(num);
+    this.checkInputIsNonNegativeInt(num);
 
     return this.divisorsExceptSelf(num).length;
   },
 
   divSumExceptSelf(num: number): number {
-    this.checkInputIsNat(num);
+    this.checkInputIsNonNegativeInt(num);
 
     return this.divisorsExceptSelf(num).reduce((a, c) => a + c, 0);
   },
 
   divGroup(num: number): string {
-    this.checkInputIsNat(num);
+    this.checkInputIsNonNegativeInt(num);
 
     if (this.divSumExceptSelf(num) === num) {
       return "perfect";
@@ -182,28 +182,28 @@ const Queen = {
   },
 
   perfectNumSeq(num: number): number[] {
-    this.checkInputIsNat(num);
+    this.checkInputIsNonNegativeInt(num);
 
     const arr = this.iota(1, num);
     return arr.filter((elem) => this.divGroup(elem) === "perfect");
   },
 
   surplusNumSeq(num: number): number[] {
-    this.checkInputIsNat(num);
+    this.checkInputIsNonNegativeInt(num);
 
     const arr = this.iota(1, num);
     return arr.filter((elem) => this.divGroup(elem) === "surplus");
   },
 
   deficientNumSeq(num: number): number[] {
-    this.checkInputIsNat(num);
+    this.checkInputIsNonNegativeInt(num);
 
     const arr = this.iota(1, num);
     return arr.filter((elem) => this.divGroup(elem) === "deficient");
   },
 
   isPrime(num: number): boolean {
-    this.checkInputIsNat(num);
+    this.checkInputIsNonNegativeInt(num);
 
     if (num === 1) {
       return false;
@@ -220,21 +220,21 @@ const Queen = {
   },
 
   primeSeq(num: number): number[] {
-    this.checkInputIsNat(num);
+    this.checkInputIsNonNegativeInt(num);
 
     const arr = this.iota(1, num);
     return arr.filter((elem: number) => this.isPrime(elem));
   },
 
   compositeSeq(num: number): number[] {
-    this.checkInputIsNat(num);
+    this.checkInputIsNonNegativeInt(num);
 
     const arr = this.iota(1, num);
     return arr.filter((elem) => !this.isPrime(elem));
   },
 
   isHighlyComposite(num: number): boolean {
-    this.checkInputIsNat(num);
+    this.checkInputIsNonNegativeInt(num);
 
     if (Queen.isPrime(num)) {
       return false;
@@ -264,13 +264,13 @@ const Queen = {
   },
 
   highlyCompositeSeq(num: number): number[] {
-    this.checkInputIsNat(num);
+    this.checkInputIsNonNegativeInt(num);
     const arr = this.compositeSeq(num);
     return arr.filter((elem) => this.isHighlyComposite(elem));
   },
 
   isTriangularNum(num: number): boolean {
-    this.checkInputIsNat(num);
+    this.checkInputIsNonNegativeInt(num);
     const tmp = (-1 + Math.sqrt(1 + 8 * num)) / 2;
     if (Number.isInteger(tmp)) {
       return true;
@@ -279,7 +279,7 @@ const Queen = {
   },
 
   triangleNumSeq(num: number): number[] {
-    this.checkInputIsZeroOrPositiveInt(num);
+    this.checkInputIsNonNegativeInt(num);
     const arr = this.iota(0, num);
     return arr.filter((elem) => this.isTriangularNum(elem));
   },

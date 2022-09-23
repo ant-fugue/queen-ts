@@ -404,6 +404,65 @@ Deno.test("A023194", () => {
   );
 });
 
+// A024770
+// Right-truncatable primes
+const isRightTruncatablePrime = (n: number): boolean => {
+  Queen.checkInputIsNonNegativeInt(n);
+
+  let result = true;
+
+  let numStr = n.toString();
+  const length = numStr.length;
+
+  for (let i = 0; i < length; i++) {
+    if (!Queen.isPrime(parseInt(numStr))) {
+      result = false;
+    }
+    numStr = numStr.substring(0, numStr.length - 1);
+  }
+  return result;
+};
+
+Deno.test("A024770", () => {
+  assertEquals(
+    Queen.iota(1, 500).filter((elem) => isRightTruncatablePrime(elem)),
+    [
+      2, 3, 5, 7, 23, 29, 31, 37, 53, 59, 71, 73, 79, 233, 239, 293, 311, 313,
+      317, 373, 379,
+    ]
+  );
+});
+
+// [ ] fails test, find the cause later
+// A024785
+// Right-truncatable primes
+// const isLeftTruncatablePrime = (n: number): boolean => {
+//   Queen.checkInputIsNonNegativeInt(n);
+
+//   let result = true;
+
+//   let numStr = n.toString();
+//   const length = numStr.length;
+
+//   for (let i = 0; i < length; i++) {
+//     if (!Queen.isPrime(parseInt(numStr))) {
+//       result = false;
+//     }
+//     console.log(numStr);
+//     numStr = numStr.substring(1);
+//   }
+//   return result;
+// };
+
+// Deno.test("A024785", () => {
+//   assertEquals(
+//     Queen.iota(1, 500).filter((elem: number) => isLeftTruncatablePrime(elem)),
+//     [
+//       2, 3, 5, 7, 13, 17, 23, 37, 43, 47, 53, 67, 73, 83, 97, 113, 137, 167,
+//       173, 197, 223, 283, 313, 317, 337, 347, 353, 367, 373, 383, 397, 443, 467,
+//     ]
+//   );
+// });
 // A028834
 // 各位の和が素数になる数の数列
 Deno.test("A028834", () => {

@@ -203,7 +203,8 @@ Deno.test("A002113", () => {
 // A003159
 Deno.test("A003159", () => {
   const isA003159 = (num: number): boolean => {
-    const binRepReverse = Queen.digitsToBinary(num)
+    const binRepReverse = Queen.utils
+      .digitsToBinary(num)
       .split("")
       .reverse()
       .join("");

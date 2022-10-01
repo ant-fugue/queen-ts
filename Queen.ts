@@ -117,6 +117,26 @@ const Queen = {
       const length = max - min + 1;
       return new Array(length).fill(0).map((elem, i) => min + i);
     },
+    digitsToBinary(num: number): string {
+      let result = "";
+      let index = 0;
+
+      while (2 ** (index + 1) <= num) {
+        index = index + 1;
+      }
+
+      for (let i = index; i >= 0; i--) {
+        let tmp = num - 2 ** i;
+        if (tmp >= 0) {
+          result += "1";
+          num = tmp;
+        } else {
+          result += "0";
+        }
+      }
+
+      return result;
+    },
   },
 
   divOf(num: number): number[] {
@@ -309,27 +329,6 @@ const Queen = {
 
   sumOfPrimesUnder(num: number): number {
     return this.primeSeq(num).reduce((a, c) => a + c, 0);
-  },
-
-  digitsToBinary(num: number): string {
-    let result = "";
-    let index = 0;
-
-    while (2 ** (index + 1) <= num) {
-      index = index + 1;
-    }
-
-    for (let i = index; i >= 0; i--) {
-      let tmp = num - 2 ** i;
-      if (tmp >= 0) {
-        result += "1";
-        num = tmp;
-      } else {
-        result += "0";
-      }
-    }
-
-    return result;
   },
 
   isTriangle(a: number, b: number, c: number): boolean {

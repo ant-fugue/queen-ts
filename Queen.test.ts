@@ -144,6 +144,12 @@ Deno.test("test", () => {
   assertEquals(Queen.isTriangle(2, 3, 4), true);
 });
 
+Deno.test("isMersenne", () => {
+  assertEquals(Queen.isMersenneNumber(1), true);
+  assertEquals(Queen.isMersenneNumber(8191), true);
+  assertEquals(Queen.isMersenneNumber(64), false);
+});
+
 // Deno.test("test",()=>{assertEquals(Queen.fib(6), 5)});
 // Deno.test("test",()=>{assertEquals(Queen.fibSeq(6), [0, 1, 1, 2, 3, 5])});
 

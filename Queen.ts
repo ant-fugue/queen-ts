@@ -386,6 +386,12 @@ const Queen = {
       .reduce((a, c) => a + c, 0);
   },
 
+  // A000225
+  isMersenneNumber(n: number): boolean {
+    this.checkInputIsNat(n);
+    return Number.isInteger(Math.log2(n + 1));
+  },
+
   //  isMersennePrime(num: number): boolean {
   //   if (num )
   //   if (!this.isPrime(num)) {

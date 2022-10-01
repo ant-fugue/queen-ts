@@ -2,49 +2,49 @@ import Queen from "./Queen.ts";
 import { assertEquals, assertThrows } from "./deps.ts";
 
 Deno.test("error check", () => {
-  assertEquals(Queen.checkInputIsInt(1), true);
-  assertEquals(Queen.checkInputIsInt(-1), true);
+  assertEquals(Queen.utils.checkInputIsInt(1), true);
+  assertEquals(Queen.utils.checkInputIsInt(-1), true);
   assertThrows(
-    () => Queen.checkInputIsInt(0.3),
+    () => Queen.utils.checkInputIsInt(0.3),
     Error,
     "input must be integer"
   );
 
-  assertEquals(Queen.checkInputIsNonNegativeInt(0), true);
-  assertEquals(Queen.checkInputIsNonNegativeInt(1), true);
+  assertEquals(Queen.utils.checkInputIsNonNegativeInt(0), true);
+  assertEquals(Queen.utils.checkInputIsNonNegativeInt(1), true);
   assertThrows(
-    () => Queen.checkInputIsNonNegativeInt(-1),
+    () => Queen.utils.checkInputIsNonNegativeInt(-1),
     Error,
     "input must be integer more than 0"
   );
 
-  assertEquals(Queen.checkInputIsInt(1), true);
+  assertEquals(Queen.utils.checkInputIsInt(1), true);
   assertThrows(
-    () => Queen.checkInputIsNonNegativeInt(3.7),
+    () => Queen.utils.checkInputIsNonNegativeInt(3.7),
     Error,
     "input must be integer more than 0"
   );
   assertThrows(
-    () => Queen.checkInputIsNat(0.5),
+    () => Queen.utils.checkInputIsNat(0.5),
     Error,
     "input must be natural number"
   );
   assertThrows(
-    () => Queen.checkInputIsNat(-1),
+    () => Queen.utils.checkInputIsNat(-1),
     Error,
     "input must be natural number"
   );
 });
 
 Deno.test("getIntArrayFromInt", () => {
-  assertEquals(Queen.getIntArrayFromInt(1), [1]);
-  assertEquals(Queen.getIntArrayFromInt(23), [2, 3]);
-  assertEquals(Queen.getIntArrayFromInt(100), [1, 0, 0]);
+  assertEquals(Queen.utils.getIntArrayFromInt(1), [1]);
+  assertEquals(Queen.utils.getIntArrayFromInt(23), [2, 3]);
+  assertEquals(Queen.utils.getIntArrayFromInt(100), [1, 0, 0]);
 });
 
-// Deno.test("test",()=>{assertEquals(Queen.iota(2, 1), [])});
+// Deno.test("test",()=>{assertEquals(Queen.utils.iota(2, 1), [])});
 Deno.test("iota", () => {
-  assertEquals(Queen.iota(3, 6), [3, 4, 5, 6]);
+  assertEquals(Queen.utils.iota(3, 6), [3, 4, 5, 6]);
 });
 Deno.test("divOf", () => {
   assertEquals(Queen.divOf(20), [1, 2, 4, 5, 10, 20]);

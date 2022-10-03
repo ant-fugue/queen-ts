@@ -230,6 +230,12 @@ Deno.test("isPowersOf", () => {
   assertEquals(Queen.isPowersOf(170, 13), false);
 });
 
+Deno.test("getSolutionsOfQuadraticEquation", () => {
+  assertEquals(Queen.getSolutionsOfQuadraticEquation(0, 2, 3), "no solution");
+  assertEquals(Queen.getSolutionsOfQuadraticEquation(1, 3, 2), [-1, -2]);
+  assertEquals(Queen.getSolutionsOfQuadraticEquation(1, 4, 4), [-2, -2]);
+});
+
 Deno.test("lunar addition keeps the bigger", () => {
   assertEquals(Queen.lunar.add("1", "1"), "1");
   assertEquals(Queen.lunar.add("1", "2"), "2");

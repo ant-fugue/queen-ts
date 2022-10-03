@@ -511,6 +511,22 @@ const Queen = {
     }
     return this.primeFactorArr(n).every((elem) => elem === p);
   },
+
+  getSolutionsOfQuadraticEquation(
+    a: number,
+    b: number,
+    c: number
+  ): number[] | string {
+    if (a === 0) {
+      return "no solution";
+    }
+
+    const result = [
+      (-b + Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a),
+      (-b - Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a),
+    ];
+    return result;
+  },
 };
 
 export default Queen;

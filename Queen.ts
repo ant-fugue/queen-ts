@@ -118,24 +118,7 @@ const Queen = {
       return new Array(length).fill(0).map((elem, i) => min + i);
     },
     digitsToBinary(num: number): string {
-      let result = "";
-      let index = 0;
-
-      while (2 ** (index + 1) <= num) {
-        index = index + 1;
-      }
-
-      for (let i = index; i >= 0; i--) {
-        let tmp = num - 2 ** i;
-        if (tmp >= 0) {
-          result += "1";
-          num = tmp;
-        } else {
-          result += "0";
-        }
-      }
-
-      return result;
+      return num.toString(2);
     },
   },
 

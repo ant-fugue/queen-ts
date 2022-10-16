@@ -134,8 +134,8 @@ Deno.test("test", () => {
 Deno.test("test", () => {
   assertEquals(Queen.utils.digitsToBinary(0), "0");
   assertEquals(Queen.utils.digitsToBinary(4), "100");
-  assertEquals(Queen.utils.digitsToBinary(10), "1010");
   assertEquals(Queen.utils.digitsToBinary(15), "1111");
+  assertEquals(Queen.utils.digitsToBinary(100), "1100100");
 });
 
 Deno.test("test", () => {
